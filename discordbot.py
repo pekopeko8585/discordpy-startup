@@ -17,7 +17,7 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def ping(ctx):
+async def peko(ctx):
     await ctx.send('pekodesu!!!')
 
 # メッセージ受信時に動作する処理
