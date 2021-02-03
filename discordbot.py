@@ -17,8 +17,8 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def peko(ctx):
-    await ctx.send('pekodesu!!!')
+async def peko(ctx, arg):
+    await ctx.send('引数は' + arg + 'です')
 
 # メッセージ受信時に動作する処理
 @client.event
