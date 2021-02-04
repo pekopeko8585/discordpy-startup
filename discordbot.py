@@ -30,8 +30,11 @@ async def on_message(message):
     if message.author.bot:
         return
     
+    await message.channel.send('きてるよ')
+        
     # システム日付を返す。
     if message.content == '/sysdate':
+        await message.channel.send('きてるよ2')
         await message.channel.send(d_today.strptime('%Y/%m/%d %H:%M'))
         return
     
