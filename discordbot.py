@@ -7,6 +7,8 @@ import datetime
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
+dt_now = datetime.datetime.now()
+
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
@@ -23,7 +25,6 @@ async def peko(ctx, arg):
 
 @bot.command()
 async def システム日時(ctx):
-dt_now = datetime.datetime.now()
     await ctx.send('システム日付は' + dt_now + 'です')
 
 bot.run(token)
