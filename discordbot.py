@@ -7,7 +7,7 @@ import datetime
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
-dt_now = datetime.datetime.now()
+dt_now = datetime.datetime.now().today()
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
