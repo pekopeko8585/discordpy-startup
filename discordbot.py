@@ -40,6 +40,7 @@ async def on_message(message):
     # 「/neko」と発言したら「にゃーん」が返る処理
     if message.content == '/neko':
         await message.channel.send('にゃーん')
+        loop.start()
         return
 
 # 60秒に一回ループ
@@ -48,8 +49,6 @@ async def loop():
     # 現在の時刻
      now = datetime.now().strftime('%H:%M')
      await channel.send(now)  
-        
-loop.start()
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
