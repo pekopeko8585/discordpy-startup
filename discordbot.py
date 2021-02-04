@@ -58,7 +58,7 @@ async def loop():
     # 現在の時刻
     now = datetime.now().strftime('%H:%M')
     if now == '21:51':
-        channel = client.get_channel(CHANNEL_ID)
+        channel = client.get_channel('806529550355791872')
         await channel.send('おはよう')  
         
 loop.start()
