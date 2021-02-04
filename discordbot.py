@@ -19,14 +19,6 @@ client = discord.Client()
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
-    
-def send_remind(channel):
-    asyncio.ensure_future(client.send_message(channel, 'リマインダーです'), loop=loop) # 実行するイベントループを指定
-
-def remind(channel):
-    scheduler = sched.scheduler(time.time, time.sleep)
-    scheduler.enter(60*5, 1, send_remind, args=(channel,))
-    scheduler.run()
         
 # メッセージ受信時に動作する処理
 @client.event
@@ -49,10 +41,6 @@ async def on_message(message):
     if message.content == '/neko':
         await message.channel.send('にゃーん')
         return
-    
-    if message.content.startswith('/remind'):
-        thread = threading.Thread(target=remind, args=(message.channel,))
-        thread.start()
 
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
