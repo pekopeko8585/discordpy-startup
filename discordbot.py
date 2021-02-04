@@ -19,6 +19,16 @@ async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
 
+@tasks.loop(seconds=60)
+async def loop():
+    now = datetime.now().strftime('%H:%M')
+    channel = client.get_channel('806529550355791872') #発言チャンネルを指定
+    
+    #12:00・18:00にニュースを自動取得する
+    if now == '20:43' or now == '20:44':
+         await channel.send('きてるよ2')
+        
+
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
