@@ -8,6 +8,7 @@ import sched
 import asyncio
 
 token = os.environ['DISCORD_BOT_TOKEN']
+channel = client.get_channel('806529550355791872')
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -57,9 +58,7 @@ async def on_message(message):
 async def loop():
     # 現在の時刻
     now = datetime.now().strftime('%H:%M')
-    if now == '21:51':
-        channel = client.get_channel('806529550355791872')
-        await channel.send('おはよう')  
+    await channel.send(now)  
         
 loop.start()
     
