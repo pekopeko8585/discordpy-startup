@@ -7,6 +7,7 @@ import threading
 import time
 import sched
 import asyncio
+import tasks
 
 token = os.environ['DISCORD_BOT_TOKEN']
 
@@ -27,8 +28,8 @@ async def on_command_error(ctx, error):
 
 @tasks.loop(seconds=60)
 async def loop():
-    # channel = client.get_channel('806529550355791872') #発言チャンネルを指定
-    # await channel.send('hoge')
+    channel = client.get_channel('806529550355791872') #発言チャンネルを指定
+    await channel.send('hoge')
     
     # now = datetime.now().strftime('%H:%M')
     #12:00・18:00にニュースを自動取得する
