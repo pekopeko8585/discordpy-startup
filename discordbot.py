@@ -3,10 +3,6 @@ import os
 import traceback
 import discord
 import datetime
-import threading
-import time
-import sched
-import asyncio
 
 token = os.environ['DISCORD_BOT_TOKEN']
 
@@ -17,7 +13,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
-
+    print('ログインしました')
         
 # メッセージ受信時に動作する処理
 @client.event
