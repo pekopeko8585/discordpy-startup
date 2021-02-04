@@ -26,13 +26,13 @@ async def on_command_error(ctx, error):
 async def on_message(message):
     d_today = datetime.date.today()
     
-    # システム日付を返す。
-    if message.content == '/sysdate':
-        await message.channel.send(d_today.strptime(date_str, '%Y/%m/%d %H:%M'))
-        return
-    
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
+        return
+    
+    # システム日付を返す。
+    if message.content == '/sysdate':
+        await message.channel.send(d_today.strptime('%Y/%m/%d %H:%M'))
         return
     
     # 「/neko」と発言したら「にゃーん」が返る処理
