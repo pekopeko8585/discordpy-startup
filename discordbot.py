@@ -41,9 +41,5 @@ async def on_message(message):
         await message.channel.send('にゃーん')
         return
     
-    if message.content == '/channel':
-        channel_id = client.get_channel('806529550355791872') #発言チャンネルを指定
-        await channel_id.send('ログインしました。')
-    
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
