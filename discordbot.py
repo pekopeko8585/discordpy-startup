@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import commands import tasks
 import os
 import traceback
 import discord
@@ -7,7 +7,6 @@ import threading
 import time
 import sched
 import asyncio
-import tasks
 
 token = os.environ['DISCORD_BOT_TOKEN']
 
