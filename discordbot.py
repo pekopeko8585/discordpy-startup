@@ -17,8 +17,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
-    channel = client.get_channel('806529550355791872') #発言チャンネルを指定
-    await channel.send('ログインしました。')
+
         
 # メッセージ受信時に動作する処理
 @client.event
@@ -41,7 +40,10 @@ async def on_message(message):
     if message.content == '/neko':
         await message.channel.send('にゃーん')
         return
-
+    
+    if message.content == '/channel':
+        channel = client.get_channel('806529550355791872') #発言チャンネルを指定
+        await channel.send('ログインしました。')
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
