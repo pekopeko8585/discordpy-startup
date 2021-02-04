@@ -24,7 +24,7 @@ async def on_command_error(ctx, error):
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    d_today = datetime.date.today()
+    d_today = datetime.datetime.now()
     
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
@@ -35,7 +35,7 @@ async def on_message(message):
     # システム日付を返す。
     if message.content == '/sysdate':
         await message.channel.send('きてるよ2')
-        await message.channel.send(d_today.strptime('%Y/%m/%d %H:%M'))
+        await message.channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
         return
     
     # 「/neko」と発言したら「にゃーん」が返る処理
