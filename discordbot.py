@@ -24,10 +24,12 @@ async def on_message(message):
     # 「/neko」と発言したら「にゃーん」が返る処理
     if message.content == '/neko':
         await message.channel.send('にゃーん')
+        return
         
     # システム日付を返す。
     if message.content == '/システム日時':
         await message.channel.send(datetime.datetime.strptime(date_str, '%Y/%m/%d %H:%M'))
-
+        return
+    
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
