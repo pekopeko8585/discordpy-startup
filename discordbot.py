@@ -25,6 +25,11 @@ async def on_command_error(ctx, error):
 @client.event
 async def on_message(message):
     d_today = datetime.date.today()
+            
+    # システム日付を返す。
+    if message.content == '/sysdate':
+        await message.channel.send(d_today.strptime(date_str, '%Y/%m/%d %H:%M'))
+        return
     
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
@@ -34,11 +39,7 @@ async def on_message(message):
     if message.content == '/neko':
         await message.channel.send('にゃーん')
         return
-        
-    # システム日付を返す。
-    if message.content == '/sysdate':
-        await message.channel.send(d_today.strptime(date_str, '%Y/%m/%d %H:%M'))
-        return
+
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
