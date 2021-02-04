@@ -28,7 +28,7 @@ async def on_message(message):
     if message.author.bot:
         return
     
-    await message.channel.send('きてるよ')
+    await message.channel.send('きてるよ2')
         
     # システム日付を返す。
     if message.content == '/sysdate':
