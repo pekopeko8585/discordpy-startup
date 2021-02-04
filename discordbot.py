@@ -12,7 +12,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
-channel = client.get_channel('806529550355791872')
+channel = client.get_channel(806529550355791872)
 
 # 起動時に動作する処理
 @client.event
