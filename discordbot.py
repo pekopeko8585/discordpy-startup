@@ -9,7 +9,7 @@ import asyncio
 from discord.ext import tasks
 
 token = os.environ['DISCORD_BOT_TOKEN']
-channel = client.get_channel('806529550355791872')
+#channel = client.get_channel('806529550355791872')
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
