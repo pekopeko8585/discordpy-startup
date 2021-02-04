@@ -51,6 +51,17 @@ async def on_message(message):
     if message.content.startswith('/remind'):
         thread = threading.Thread(target=remind, args=(message.channel,))
         thread.start()
+
+# 60秒に一回ループ
+@tasks.loop(seconds=60)
+async def loop():
+    # 現在の時刻
+    now = datetime.now().strftime('%H:%M')
+    if now == '21:51':
+        channel = client.get_channel(CHANNEL_ID)
+        await channel.send('おはよう')  
+        
+loop.start()
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
