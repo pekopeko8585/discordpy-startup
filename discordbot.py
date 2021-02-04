@@ -25,7 +25,8 @@ async def on_command_error(ctx, error):
 @client.event
 async def on_message(message):
     d_today = datetime.date.today()
-            
+    await message.channel.send(d_today)
+    
     # システム日付を返す。
     if message.content == '/sysdate':
         await message.channel.send(d_today.strptime(date_str, '%Y/%m/%d %H:%M'))
