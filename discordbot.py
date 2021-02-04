@@ -27,9 +27,10 @@ async def on_command_error(ctx, error):
 
 @tasks.loop(seconds=60)
 async def loop():
-    now = datetime.now().strftime('%H:%M')
     channel = client.get_channel('806529550355791872') #発言チャンネルを指定
+    await channel.send('hoge')
     
+    now = datetime.now().strftime('%H:%M')
     #12:00・18:00にニュースを自動取得する
     if now == '20:02' or now == '20:03' or now == '20:04' or now == '20:05' or now == '20:06' or now == '20:07' or now == '20:08':
         await channel.send('hoge')
