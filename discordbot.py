@@ -7,7 +7,6 @@ import time
 import sched
 import asyncio
 from discord.ext import tasks
-from datetime import datetime 
 
 token = os.environ['DISCORD_BOT_TOKEN']
 channel = client.get_channel('806529550355791872')
