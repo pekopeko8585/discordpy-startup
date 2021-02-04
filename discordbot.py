@@ -4,7 +4,6 @@ import traceback
 import discord
 import datetime
 
-bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
@@ -25,6 +24,10 @@ async def on_message(message):
     # 「/neko」と発言したら「にゃーん」が返る処理
     if message.content == '/neko':
         await message.channel.send('にゃーん')
+        
+    # システム日付を返す。
+    if message.content == '/システム日時':
+        await message.channel.send(datetime.datetime.strptime(date_str, '%Y/%m/%d %H:%M'))
 
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
