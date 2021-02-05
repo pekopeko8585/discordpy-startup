@@ -13,7 +13,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()
 
 #yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
-yggdrasil = [5,'03:28','ユグドラシル開店は本日22時です！']
+yggdrasil = [5,'03:40','ユグドラシル開店は本日22時です！']
 
 eventList = [yggdrasil]
 
