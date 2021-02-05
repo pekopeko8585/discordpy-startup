@@ -14,7 +14,7 @@ client = discord.Client()
 
 #yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
 #yggdrasil = [5,'03:45','ユグドラシル開店は本日22時です！']
-f = open("eventList.csv", "a")
+f = open('eventList.csv', 'a')
 for item in f.readlines():
     eventList.append(item.split(','))
 
