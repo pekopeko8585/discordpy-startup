@@ -12,6 +12,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
+channel = client.get_channel(806529550355791872)
 
 # 起動時に動作する処理
 @client.event
@@ -22,25 +23,25 @@ async def on_ready():
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    d_today = datetime.datetime.now()
-    channel = client.get_channel(806529550355791872)
-    await message.channel.send(channel)
-
-#await channel.send('hoge')
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
         
     # システム日付を返す。
     if message.content == '/sysdate':
-        await message.channel.send('きてるよ2')
+        await message.channel.send('きてるよ3')
+        d_today = datetime.datetime.now()
         await message.channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
         return
     
     # 「/neko」と発言したら「にゃーん」が返る処理
     if message.content == '/neko':
         await message.channel.send('にゃーん')
-        loop.start()
+        return
+    
+    # メッセージを送る
+    if message.content == '/sendmessage':
+        await message.channel.send(message.content)
         return
 
 # 60秒に一回ループ
