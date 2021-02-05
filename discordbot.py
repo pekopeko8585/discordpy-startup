@@ -68,19 +68,21 @@ async def on_message(message):
     
     # 通知を表示
     if message.content == '/view':
+        count = 0
         for item in eventList:
-            await message.channel.send(item)
+            await message.channel.send(count + '：' + item)
+            count = count + 1
         return
     
     # ヘルプを表示
     if message.content == '/help':
-        tempstr = '/sysdate:現在のサーバー日時を表示します。'
-        tempstr = tempstr + '/neko：鳴きます。'
-        tempstr = tempstr + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。'
-        tempstr = tempstr + '/view：現在通知予定のイベントをすべて表示します。'
-        tempstr = tempstr + '/add：通知したいイベントを追加します。'
-        tempstr = tempstr + '　パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。'
-        tempstr = tempstr + '　なお、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。'
+        tempstr = '/sysdate:現在のサーバー日時を表示します。\n'
+        tempstr = tempstr + '/neko：鳴きます。\n'
+        tempstr = tempstr + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
+        tempstr = tempstr + '/view：現在通知予定のイベントをすべて表示します。\n'
+        tempstr = tempstr + '/add：通知したいイベントを追加します。\n'
+        tempstr = tempstr + '　パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
+        tempstr = tempstr + '　なお、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。\n'
         tempstr = tempstr + '　例として水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ'
         await message.channel.send(tempstr)
         return
