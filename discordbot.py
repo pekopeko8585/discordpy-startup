@@ -66,19 +66,37 @@ async def on_message(message):
         await message.channel.send(newEventList)
         return
     
+        # 通知を削除
+    if message.content[:7] == '/remove':
+        tempstr = ''
+        if len(message.content) <= 8 or message.content[5:].strip().count(' ') != 1:
+            tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
+            tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
+            tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
+            await message.channel.send(tempstr)
+            return
+        remove_id = message.content[7:].strip()
+        if remove_id > str(len(eventList)):
+            await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+            
+        tempstr = eventList[remove_id]
+        await message.channel.send(tempstr) 
+        eventList.pop(remove_id)
+            retutn
+       
+        newEventList = message.content[5:].split(' ')
+        eventList.append(newEventList) 
+        await message.channel.send('新しいイベントを追加しました。')
+        await message.channel.send(newEventList)
+        return
+    
     # 通知を表示
     if message.content == '/view':
-        await message.channel.send('テスト1')
         count = 0
-        await message.channel.send('テスト2')
         tempstr = ''
-        await message.channel.send('テスト3')
         for item in eventList:
-            await message.channel.send('テスト4')
-            tempstr = tempstr + str(count) + '：' + ','.join(item) + '\n'
-            await message.channel.send('テスト5')
+            tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
             count = count + 1
-            await message.channel.send('テスト6')
         await message.channel.send(tempstr)
         return
     
