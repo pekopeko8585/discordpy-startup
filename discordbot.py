@@ -56,7 +56,7 @@ async def sendloop(channel):
     
     with open('eventList.csv') as f:
     await channel.send('テスト1')
-    await channel.send(f.read())
+    #await channel.send(f.read())
     
     for item in f.readlines():
         await channel.send('テスト2')
