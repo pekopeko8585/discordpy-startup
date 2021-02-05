@@ -12,8 +12,9 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-#yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
-#yggdrasil = [5,'03:45','ユグドラシル開店は本日22時です！']
+yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
+
+eventList = [yggdrasil]
 
 # 起動時に動作する処理
 @client.event
@@ -39,11 +40,29 @@ async def on_message(message):
         await message.channel.send('にゃーん')
         return
     
-    # メッセージを送る
+    # 通知を開始
     if message.content == '/remind':
         sendloop.start(message.channel)
         return
-
+    
+    # 通知を追加
+    if message.content[:3] == '/add ':
+        if message.content[5:].strip().count(' ') != 2:
+            await message.channel.send('パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。')
+            await message.channel.send('水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ')
+            retutn
+            
+        newEventList = message.content[5:].split(',')
+        eventList.append(newEventList) 
+        await message.channel.send('通知するイベントを追加しました。:' + newEventList)
+        return
+    
+    # 通知を表示
+    if message.content[:3] == '/view':
+        for item in eventList:
+            await message.channel.send(item)
+        return
+        
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
 async def sendloop(channel):
@@ -51,20 +70,6 @@ async def sendloop(channel):
     # 月火水木金土日
     # 現在の時刻
     d_today = datetime.datetime.now()
-    await channel.send('テスト開始')
-    
-    with open('eventList.csv') as f:
-        await channel.send('テスト1')
-        file_data = f.readlines()
-        await channel.send('テスト555')
-        await channel.send(file_data)
-
-        for item in file_data:
-            await channel.send('テスト2')
-            eventList.append(item)
-            eventList.append(item.split(',')[0])
-            
-    await channel.send('テスト終了')
     
     for item in eventList:
         if  d_today.weekday() == item[0] and item[1] == d_today.strftime('%H:%M'):
