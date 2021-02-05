@@ -75,8 +75,7 @@ async def on_message(message):
         await message.channel.send('テスト3')
         for item in eventList:
             await message.channel.send('テスト4')
-            #tempstr = tempstr + count + '：' + ','.join(item) + '\n'
-            tempstr = tempstr + count
+            tempstr = tempstr + str(count) + '：' + ','.join(item) + '\n'
             await message.channel.send('テスト5')
             count = count + 1
             await message.channel.send('テスト6')
