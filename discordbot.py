@@ -51,5 +51,5 @@ async def on_message(message):
 #channel = client.get_channel(806529550355791872)
     #await channel.send(now)  
     
-# Botの起動とDiscordサーバーへの接続
+# Botの起動とDiscordサーバーへの接続k
 client.run(token)
