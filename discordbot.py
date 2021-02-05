@@ -56,8 +56,9 @@ async def sendloop(channel):
     d_today = datetime.datetime.now()
     await channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
     await channel.send(d_today.weekday())
+    await channel.send(eventList)
     
-    for item in event:
+    for item in eventList:
         if  d_today.weekday() == item[0] and item[1] == d_today.strftime('%H:%M'):
             await channel.send(item[2])
     
