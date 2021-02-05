@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import tasks, commands
 import os
 import discord
 import datetime
@@ -6,7 +6,6 @@ import threading
 import time
 import sched
 import asyncio
-from discord.ext import tasks
 
 token = os.environ['DISCORD_BOT_TOKEN']
 
