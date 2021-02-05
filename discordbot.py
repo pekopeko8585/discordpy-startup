@@ -14,9 +14,6 @@ client = discord.Client()
 
 #yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
 #yggdrasil = [5,'03:45','ユグドラシル開店は本日22時です！']
-f = open('eventList.csv', 'a')
-for item in f.readlines():
-    eventList.append(item.split(','))
 
 # 起動時に動作する処理
 @client.event
@@ -55,8 +52,14 @@ async def sendloop(channel):
     # 月火水木金土日
     # 現在の時刻
     d_today = datetime.datetime.now()
-    await channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
-    await channel.send(eventList[0][1] + ':' + d_today.strftime('%H:%M'))
+    await channel.send('テスト開始')
+    
+    f = open('eventList.csv', 'a')
+    await channel.send('テスト1')
+    for item in f.readlines():
+        await channel.send('テスト2')
+        eventList.append(item.split(','))
+    await channel.send('テスト終了')
     
     for item in eventList:
         if  d_today.weekday() == item[0] and item[1] == d_today.strftime('%H:%M'):
