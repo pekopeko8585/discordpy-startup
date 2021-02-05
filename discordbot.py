@@ -47,7 +47,7 @@ async def on_message(message):
     
     await message.channel.send(message.content[:3])
     # 通知を追加
-    if message.content[:3] == '/add ':
+    if message.content[:5] == '/add ':
         if message.content[5:].strip().count(' ') != 2:
             await message.channel.send('パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。')
             await message.channel.send('水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ')
@@ -59,7 +59,7 @@ async def on_message(message):
         return
     
     # 通知を表示
-    if message.content[:3] == '/view':
+    if message.content == '/view':
         for item in eventList:
             await message.channel.send(item)
         return
