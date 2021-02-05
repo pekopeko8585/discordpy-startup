@@ -38,19 +38,19 @@ async def on_message(message):
         return
     
     # メッセージを送る
-    if message.content == '/sendmessage':
-        await message.channel.send('テスト')
-        await message.channel.send(message.channel)
+    if message.content == '/remind':
         sendloop.start(message.channel)
-        await message.channel.send(message.channel + '：2')
         return
 
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
 async def sendloop(channel):
+    # 0 1 2 3 4 5 6
+    # 月火水木金土日
     # 現在の時刻
     d_today = datetime.datetime.now()
     await channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
+    await channel.send(d_today.weekday())
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
