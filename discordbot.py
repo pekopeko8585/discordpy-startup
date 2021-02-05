@@ -71,6 +71,18 @@ async def on_message(message):
         for item in eventList:
             await message.channel.send(item)
         return
+    
+    # ヘルプを表示
+    if message.content == '/help':
+        await message.channel.send('/sysdate:現在のサーバー日時を表示します。')
+        await message.channel.send('/neko：鳴きます。')
+        await message.channel.send('/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。')
+        await message.channel.send('/view：現在通知予定のイベントをすべて表示します。')
+        await message.channel.send('/add：通知したいイベントを追加します。')
+        await message.channel.send('　パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。')
+        await message.channel.send('　なお、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。')
+        await message.channel.send('　例として水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ')
+        return
         
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
