@@ -23,7 +23,8 @@ async def on_ready():
 @client.event
 async def on_message(message):
     d_today = datetime.datetime.now()
-    
+    channel = client.get_channel(806529550355791872)
+　　　await channel.send('hoge')
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
