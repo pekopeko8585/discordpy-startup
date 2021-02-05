@@ -45,7 +45,7 @@ async def on_message(message):
         sendloop.start(message.channel)
         return
     
-    await message.channel.send(message.content[:3])
+    await message.channel.send(message.content[:5])
     # 通知を追加
     if message.content[:5] == '/add ':
         if message.content[5:].strip().count(' ') != 2:
