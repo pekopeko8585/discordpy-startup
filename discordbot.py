@@ -78,18 +78,13 @@ async def on_message(message):
         remove_id = str(message.content[7:].strip())
         if remove_id > str(len(eventList)):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
-            
+            return
+        
         tempstr = eventList[remove_id]
         await message.channel.send(tempstr) 
         eventList.pop(remove_id)
-            retutn
-       
-        newEventList = message.content[5:].split(' ')
-        eventList.append(newEventList) 
-        await message.channel.send('新しいイベントを追加しました。')
-        await message.channel.send(newEventList)
-        return
-    
+        retutn
+
     # 通知を表示
     if message.content == '/view':
         count = 0
