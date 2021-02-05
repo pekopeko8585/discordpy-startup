@@ -12,6 +12,11 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
+#yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
+yggdrasil = [5,'03:00','ユグドラシル開店は本日22時です！']
+
+eventList = [yggdrasil]
+
 # 起動時に動作する処理
 @client.event
 async def on_ready():
@@ -51,6 +56,10 @@ async def sendloop(channel):
     d_today = datetime.datetime.now()
     await channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
     await channel.send(d_today.weekday())
+    
+    for item in event:
+        if  d_today.weekday() == item[0] and item[1] == d_today.strftime('%H:%M'):
+            await channel.send(item[2])
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
