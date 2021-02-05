@@ -60,7 +60,8 @@ async def sendloop(channel):
     
     for item in f.readlines():
         await channel.send('テスト2')
-        eventList.append(item.split(','))
+        eventList.append(item)
+        eventList.append(item.split(',')[0])
     await channel.send('テスト終了')
     
     for item in eventList:
