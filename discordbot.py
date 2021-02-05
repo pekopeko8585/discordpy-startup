@@ -47,7 +47,7 @@ async def on_message(message):
     
     await message.channel.send(message.content[:5])
     # 通知を追加
-    if message.content[:5] == '/add ':
+    if message.content[:4] == '/add':
         if len(message.content) <= 5 or message.content[5:].strip().count(' ') != 2:
             await message.channel.send('パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。')
             await message.channel.send('水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ')
