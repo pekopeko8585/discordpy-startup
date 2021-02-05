@@ -54,7 +54,7 @@ async def sendloop(channel):
     d_today = datetime.datetime.now()
     await channel.send('テスト開始')
     
-    f = open('./eventList.csv', 'a')
+    f = open('eventList.csv')
     await channel.send('テスト1')
     await channel.send(f.readlines())
     
