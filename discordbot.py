@@ -41,13 +41,12 @@ async def on_message(message):
         return
 
 # 60秒に一回ループ
-@tasks.loop(seconds=60)
-async def loop():
+#@tasks.loop(seconds=60)
+#async def loop():
     # 現在の時刻
-    now = datetime.now().strftime('%H:%M')
-
-　　　channel = client.get_channel(806529550355791872)
-    await channel.send(now)  
+    #now = datetime.now().strftime('%H:%M')
+#channel = client.get_channel(806529550355791872)
+    #await channel.send(now)  
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
