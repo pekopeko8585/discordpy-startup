@@ -7,12 +7,19 @@ import time
 import sched
 import asyncio
 
+###############################################################################################
+#                                                                                             #
+# 改修時はメモリに残しているイベントデータを/viewコメントで取得してから直してね！！！！              #
+#                                                                                             #
+###############################################################################################
+
+
 token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-yggdrasil = [3,'21:00','ユグドラシル開店は本日22時です！']
+yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
 
 eventList = [yggdrasil]
 
@@ -48,7 +55,6 @@ async def on_message(message):
     await message.channel.send(message.content[:5])
     # 通知を追加
     if message.content[:4] == '/add':
-        await message.channel.send(len(message.content))
         if len(message.content) <= 5 or message.content[5:].strip().count(' ') != 2:
             await message.channel.send('パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。')
             await message.channel.send('水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ')
@@ -56,7 +62,8 @@ async def on_message(message):
             
         newEventList = message.content[5:].split(' ')
         eventList.append(newEventList) 
-        await message.channel.send('通知するイベントを追加しました。:' + newEventList)
+        await message.channel.send('新しいイベントを追加しました。')
+        await message.channel.send(newEventList)
         return
     
     # 通知を表示
