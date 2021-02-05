@@ -43,6 +43,7 @@ async def on_message(message):
     if message.content == '/sendmessage':
         await message.channel.send(message.content)
         loop.start()
+        await message.channel.send(message.content + '2')
         return
 
 # 60秒に一回ループ
