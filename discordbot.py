@@ -41,13 +41,13 @@ async def on_message(message):
     # メッセージを送る
     if message.content == '/sendmessage':
         await message.channel.send(message.content)
-        loop.start()
+        sendloop.start()
         await message.channel.send(message.content + '2')
         return
 
 # 60秒に一回ループ
 @tasks.loop(seconds=5.0)
-async def loop():
+async def sendloop():
     # 現在の時刻
     now = datetime.now().strftime('%H:%M')
     await channel.send(now)
