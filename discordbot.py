@@ -68,11 +68,17 @@ async def on_message(message):
     
     # 通知を表示
     if message.content == '/view':
+        await message.channel.send('テスト1')
         count = 0
+        await message.channel.send('テスト2')
         tempstr = ''
+        await message.channel.send('テスト3')
         for item in eventList:
+            await message.channel.send('テスト4')
             tempstr = tempstr + count + '：' + ','.join(item) + '\n'
+            await message.channel.send('テスト5')
             count = count + 1
+            await message.channel.send('テスト6')
         await message.channel.send(tempstr)
         return
     
