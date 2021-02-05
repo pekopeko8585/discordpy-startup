@@ -80,6 +80,8 @@ async def on_message(message):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
             return
         
+        await message.channel.send(remove_id) 
+        
         tempstr = str(eventList[remove_id])
         await message.channel.send(tempstr) 
         eventList.pop(remove_id)
