@@ -30,7 +30,6 @@ async def on_message(message):
         
     # システム日付を返す。
     if message.content == '/sysdate':
-        await message.channel.send('きてるよ3')
         d_today = datetime.datetime.now()
         await message.channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
         return
@@ -57,6 +56,7 @@ async def sendloop(channel):
     with open('eventList.csv') as f:
         await channel.send('テスト1')
         file_data = f.readlines()
+        await channel.send('テスト555')
         await channel.send(file_data)
 
         for item in file_data:
