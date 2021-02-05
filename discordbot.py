@@ -54,7 +54,7 @@ async def on_message(message):
             await message.channel.send('水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ')
             retutn
             
-        newEventList = message.content[5:].split(',')
+        newEventList = message.content[5:].split(' ')
         eventList.append(newEventList) 
         await message.channel.send('通知するイベントを追加しました。:' + newEventList)
         return
