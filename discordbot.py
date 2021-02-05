@@ -40,6 +40,7 @@ async def on_message(message):
     
     # メッセージを送る
     if message.content == '/sendmessage':
+        await message.channel.send('テスト')
         await message.channel.send(pekochannel)
         await pekochannel.send(message.content)
         sendloop.start()
