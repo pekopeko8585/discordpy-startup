@@ -75,7 +75,7 @@ async def on_message(message):
             tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
             await message.channel.send(tempstr)
             return
-        remove_id = message.content[7:].strip()
+        remove_id = str(message.content[7:].strip())
         if remove_id > str(len(eventList)):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
             
