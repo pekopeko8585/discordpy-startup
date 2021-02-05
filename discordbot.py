@@ -11,7 +11,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
-channel = client.get_channel(806529550355791872)
+pekochannel = client.get_channel(806529550355791872)
 
 # 起動時に動作する処理
 @client.event
@@ -40,10 +40,10 @@ async def on_message(message):
     
     # メッセージを送る
     if message.content == '/sendmessage':
-        await message.channel.send(message.content)
-        await channel.send(message.content)
+        await message.channel.send(pekochannel)
+        await pekochannel.send(message.content)
         sendloop.start()
-        await channel.send(message.content + '2')
+        await pekochannel.send(message.content + '2')
         return
 
 # 60秒に一回ループ
