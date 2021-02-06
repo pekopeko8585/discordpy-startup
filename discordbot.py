@@ -93,6 +93,8 @@ async def on_message(message):
         for item in eventList:
             tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
             count = count + 1
+        if tempstr == '':
+            tempstr = '通知予定のイベントはありません。'
         await message.channel.send(tempstr)
         return
     
