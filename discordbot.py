@@ -97,7 +97,10 @@ async def on_message(message):
     
     # ヘルプを表示
     if message.content == '/help':
-        tempstr = '/sysdate:現在のサーバー日時を表示します。\n'
+        tempstr = '概要：イベントの通知をするBOTです。\n'
+        tempstr = tempstr + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
+        tempstr = tempstr + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
+        tempstr = tempstr + '/sysdate:現在のサーバー日時を表示します。\n'
         tempstr = tempstr + '/neko：鳴きます。\n'
         tempstr = tempstr + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
         tempstr = tempstr + '/view：現在通知予定のイベントをすべて表示します。\n'
