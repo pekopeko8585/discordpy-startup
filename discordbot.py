@@ -136,7 +136,7 @@ async def sendloop(channel):
             tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
             tempstr = tempstr + str(item[2])
             tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
-            await channel.send()
+            await channel.send(tempstr)
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
