@@ -127,7 +127,7 @@ async def sendloop(channel):
     # 月火水木金土日
     # 現在の時刻
     d_today = datetime.datetime.now()
-    
+    await channel.send('きたのよー')
     for item in eventList:
         if  str(d_today.weekday()) == item[0] and item[1] == d_today.strftime('%H:%M'):
             tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
