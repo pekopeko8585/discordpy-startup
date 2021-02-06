@@ -82,7 +82,7 @@ async def on_message(message):
             return
         
         tempstr = str(eventList[remove_id])
-        await message.channel.send(tempstr) 
+        await message.channel.send('右記のイベントを削除します。：' + tempstr) 
         eventList.pop(remove_id)
         retutn
 
