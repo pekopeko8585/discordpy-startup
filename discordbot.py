@@ -49,6 +49,7 @@ async def on_message(message):
     
     # 通知を開始
     if message.content == '/remind':
+        await message.channel.send('これより登録されているイベントを指定時間に通知します。')
         sendloop.start(message.channel)
         return
     
@@ -109,7 +110,7 @@ async def on_message(message):
         tempstr = tempstr + '　　　、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。\n'
         tempstr = tempstr + '　　　時間は必ずHH:mm形式の半角の「:」含み5桁で指定してください。\n'
         tempstr = tempstr + '　　　現状適当な数字入れても予定に入りますが動きません。チェックめんどいの。許して。\n'
-        tempstr = tempstr + '例として水曜日の午前9時に「メッセージ」と表示する場合：/add 2 09:00 メッセージ\n'
+        tempstr = tempstr + '　　　例として水曜日の午前9時に「メッセージ」と表示する場合：/add 2 09:00 メッセージ\n'
         tempstr = tempstr + '/remove：通知予定のイベントを削除します。\n'
         tempstr = tempstr + '　　　パラメータは「ID」を半角スペースを挟んで指定してください。\n'
         tempstr = tempstr + '　　　「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
