@@ -129,12 +129,9 @@ async def sendloop(channel):
     d_today = datetime.datetime.now()
     await channel.send('きたのよー')
     for item in eventList:
-        await channel.send(str(d_today.weekday()) + '：' + str(item[0]))
-        await channel.send(str(item[1])+ '：' + d_today.strftime('%H:%M'))
-        await channel.send(str(d_today.weekday()) + '：' + str(item[0]))
         if str(d_today.weekday()) == str(item[0]) and str(item[1]) == d_today.strftime('%H:%M'):
-            tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
-            tempstr = tempstr + str(item[2])
+            tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
+            tempstr = tempstr + str(item[2]) + '\n'
             tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
             await channel.send(tempstr)
     
