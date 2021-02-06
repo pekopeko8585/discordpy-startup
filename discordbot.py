@@ -124,7 +124,10 @@ async def sendloop(channel):
     
     for item in eventList:
         if  str(d_today.weekday()) == item[0] and item[1] == d_today.strftime('%H:%M'):
-            await channel.send(item[2])
+            tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+            tempstr = tempstr +  str(item[2])
+            tempstr = tempstr +  '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+            await channel.send()
     
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
