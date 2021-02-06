@@ -76,7 +76,7 @@ async def on_message(message):
             await message.channel.send(tempstr)
             return
         remove_id = int(message.content[7:].strip())
-        if remove_id > str(len(eventList)):
+        if remove_id > len(eventList):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
             return
         
