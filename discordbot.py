@@ -94,7 +94,7 @@ async def on_message(message):
             tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
             await message.channel.send(tempstr)
             return
-        remove_id = int(message.content[11:].strip())
+        remove_id = int(message.content[12:].strip())
         if remove_id > len(eventList_week):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
             return
@@ -113,7 +113,7 @@ async def on_message(message):
             tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
             await message.channel.send(tempstr)
             return
-        remove_id = int(message.content[7:].strip())
+        remove_id = int(message.content[11:].strip())
         if remove_id > len(eventList_day):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
             return
@@ -132,11 +132,11 @@ async def on_message(message):
     if message.content == '/view':
         count = 0
         tempstr = ''
-        for item in eventList:
+        for item in eventList_week:
             tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
             count = count + 1
         if tempstr == '':
-            tempstr = '通知予定のイベントはありません。'
+            tempstr = tempstr + '毎週通知予定のイベントはありません。'
         await message.channel.send(tempstr)
         return
     
