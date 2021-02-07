@@ -20,7 +20,10 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()
 
 yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
-eventList = [yggdrasil]
+eventList_week = [yggdrasil]
+
+yggdrasil2 = ['2020401','21:00','21時から飲み会やります！']
+eventList_day = [yggdrasil2]
 
 # 起動時に動作する処理
 @client.event
@@ -52,40 +55,75 @@ async def on_message(message):
         sendloop.start(message.channel)
         return
     
-    # 通知を追加
-    if message.content[:4] == '/add':
-        if len(message.content) <= 5 or message.content[5:].strip().count(' ') != 2:
+    # 通知を追加_週間
+    if message.content[:8] == '/addweek':
+        if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 2:
             tempstr = 'パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
-            tempstr = tempstr + '水曜日の20時に「メッセージ」と表示する場合：/add 2 20:00 メッセージ'
+            tempstr = tempstr + '水曜日の20時に「メッセージ」と表示する場合：/addweek 2 20:00 メッセージ'
             await message.channel.send(tempstr)
             retutn
             
-        newEventList = message.content[5:].split(' ')
-        eventList.append(newEventList) 
+        newEventList = message.content[9:].split(' ')
+        eventList_weeek.append(newEventList) 
+        await message.channel.send('新しいイベントを追加しました。')
+        await message.channel.send(newEventList)
+        return
+        
+    # 通知を追加_日時
+    if message.content[:7] == '/addday':
+        if len(message.content) <= 8 or message.content[8:].strip().count(' ') != 2:
+            tempstr = 'パラメータは「日付」、「時間」「メッセージ」を半角スペース区切りで指定してください。\n'
+            tempstr = '「日時」はyyyy/mm/dd形式です。\n'
+            tempstr = '「時間」はhh:MM形式です。\n'
+            tempstr = tempstr + '2020年10月15日14時20分に「メッセージ」と表示する場合：/addday 2020/10/15 14:20 メッセージ'
+            await message.channel.send(tempstr)
+            retutn
+            
+        newEventList = message.content[8:].split(' ')
+        eventList_day.append(newEventList) 
         await message.channel.send('新しいイベントを追加しました。')
         await message.channel.send(newEventList)
         return
     
-        # 通知を削除
-    if message.content[:7] == '/remove':
+    # 通知を削除_週間
+    if message.content[:11] == '/removeweek':
         tempstr = ''
-        if len(message.content) <= 8 or message.content[5:].strip().count(' ') != 1:
+        if len(message.content) <= 12 or message.content[12:].strip().count(' ') != 1:
+            tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
+            tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
+            tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
+            await message.channel.send(tempstr)
+            return
+        remove_id = int(message.content[11:].strip())
+        if remove_id > len(eventList_week):
+            await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+            return
+        
+        tempstr = str(eventList_week[remove_id])
+        await message.channel.send('右記のイベントを削除します。：' + tempstr) 
+        eventList_week.pop(remove_id)
+        retutn
+        
+    # 通知を削除_日時
+    if message.content[:10] == '/removeday':
+        tempstr = ''
+        if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 1:
             tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
             tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
             tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
             await message.channel.send(tempstr)
             return
         remove_id = int(message.content[7:].strip())
-        if remove_id > len(eventList):
+        if remove_id > len(eventList_day):
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
             return
         
-        tempstr = str(eventList[remove_id])
+        tempstr = str(eventList_day[remove_id])
         await message.channel.send('右記のイベントを削除します。：' + tempstr) 
-        eventList.pop(remove_id)
+        eventList_day.pop(remove_id)
         retutn
         
-        # 通知を削除
+        # テスト
     if message.content == '/test':
         await message.channel.send(type(eventList)) 
         retutn
@@ -111,13 +149,13 @@ async def on_message(message):
         tempstr = tempstr + '/neko：鳴きます。\n'
         tempstr = tempstr + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
         tempstr = tempstr + '/view：現在通知予定のイベントをすべて表示します。\n'
-        tempstr = tempstr + '/add：通知したいイベントを追加します。\n'
+        tempstr = tempstr + '/addweek：毎週通知したいイベントを追加します。\n'
         tempstr = tempstr + '　　　パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
         tempstr = tempstr + '　　　、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。\n'
         tempstr = tempstr + '　　　時間は必ずHH:mm形式の半角の「:」含み5桁で指定してください。\n'
         tempstr = tempstr + '　　　現状適当な数字入れても予定に入りますが動きません。チェックめんどいの。許して。\n'
         tempstr = tempstr + '　　　例として水曜日の午前9時に「メッセージ」と表示する場合：/add 2 09:00 メッセージ\n'
-        tempstr = tempstr + '/remove：通知予定のイベントを削除します。\n'
+        tempstr = tempstr + '/removeweek：通知予定のイベントを削除します。\n'
         tempstr = tempstr + '　　　パラメータは「ID」を半角スペースを挟んで指定してください。\n'
         tempstr = tempstr + '　　　「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
         tempstr = tempstr + '　　　よくわかんねーって人は削除するたびに/viewしてみてください。'
