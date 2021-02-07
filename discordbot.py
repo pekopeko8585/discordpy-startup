@@ -20,7 +20,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()
 
 yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
-eventList = [yggdrasil]
+eventList :list
 
 # 起動時に動作する処理
 @client.event
