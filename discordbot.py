@@ -20,7 +20,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()
 
 yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
-eventList :list
+eventList = [yggdrasil]
 
 # 起動時に動作する処理
 @client.event
@@ -83,6 +83,11 @@ async def on_message(message):
         tempstr = str(eventList[remove_id])
         await message.channel.send('右記のイベントを削除します。：' + tempstr) 
         eventList.pop(remove_id)
+        retutn
+        
+        # 通知を削除
+    if message.content == '/test':
+        await message.channel.send(type(eventList)) 
         retutn
 
     # 通知を表示
