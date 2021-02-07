@@ -19,10 +19,8 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-#yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
-#eventList = [yggdrasil]
-
-eventList　= list[]
+yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
+eventList = [yggdrasil]
 
 # 起動時に動作する処理
 @client.event
