@@ -131,13 +131,23 @@ async def on_message(message):
     # 通知を表示
     if message.content == '/view':
         count = 0
+        count_day = 0
         tempstr = ''
+        tempstr2 = ''
         for item in eventList_week:
             tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
             count = count + 1
         if tempstr == '':
-            tempstr = tempstr + '毎週通知予定のイベントはありません。'
-        await message.channel.send(tempstr)
+            tempstr = '毎週の通知予定のイベントはありません。\n'
+
+        for item in eventList_day:
+            tempstr2 = tempstr2 + 'ID「' + str(count_day) + '」：' + ','.join(item) + '\n'
+            count_day = count_day + 1
+
+        if tempstr2 == '':
+            tempstr2 = '単発の通知予定のイベントはありません。'
+
+        await message.channel.send(tempstr + tempstr2)
         return
     
     # ヘルプを表示
