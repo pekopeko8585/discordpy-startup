@@ -57,6 +57,7 @@ async def on_message(message):
     
     # 通知を追加_週間
     if message.content[:8] == '/addweek':
+        await message.channel.send(len(message.content))
         if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 2:
             tempstr = 'パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
             tempstr = tempstr + '水曜日の20時に「メッセージ」と表示する場合：/addweek 2 20:00 メッセージ'
