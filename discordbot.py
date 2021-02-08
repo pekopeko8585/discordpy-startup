@@ -66,9 +66,13 @@ async def on_message(message):
         
         await message.channel.send(message.content[9:])
         newEventList = message.content[9:].split(' ')
-        eventList_weeek.append(newEventList) 
+        await message.channel.send('きた1')
+        eventList_weeek.append(newEventList)
+        await message.channel.send('きた1')
         await message.channel.send('新しいイベントを追加しました。')
+        await message.channel.send('きた2')
         await message.channel.send(newEventList)
+        await message.channel.send('きた3')
         return
         
     # 通知を追加_日時
