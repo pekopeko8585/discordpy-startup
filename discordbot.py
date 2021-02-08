@@ -55,12 +55,14 @@ async def on_message(message):
         sendloop.start(message.channel)
         return
     
+    
+    
     # 通知を追加_週間
     if message.content[:8] == '/addweek':
         await message.channel.send(message.content)
-        if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 2:
-            tempstr = 'パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
-            tempstr = tempstr + '水曜日の20時に「メッセージ」と表示する場合：/addweek 2 20:00 メッセージ'
+        if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 3:
+            tempstr = 'パラメータは「第X曜日」、「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
+            tempstr = tempstr + '毎週水曜日の20時に「メッセージ」と表示する場合：/addweek 9 2 20:00 メッセージ'
             await message.channel.send(tempstr)
             retutn
         
@@ -152,7 +154,7 @@ async def on_message(message):
             tempstr2 = '単発の通知予定のイベントはありません。'
         else:
             tempstr2 = '単発の通知予定のイベントは以下の通りです\n' + tempstr2
-
+            
         await message.channel.send(tempstr + tempstr2)
         return
     
@@ -166,7 +168,7 @@ async def on_message(message):
         tempstr = tempstr + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
         tempstr = tempstr + '/view：現在通知予定のイベントをすべて表示します。\n'
         tempstr = tempstr + '/addweek：毎週通知したいイベントを追加します。\n'
-        tempstr = tempstr + '　　　パラメータは「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
+        tempstr = tempstr + '　　　パラメータは「第X曜日」、「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
         tempstr = tempstr + '　　　、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。\n'
         tempstr = tempstr + '　　　時間は必ずHH:mm形式の半角の「:」含み5桁で指定してください。\n'
         tempstr = tempstr + '　　　現状適当な数字入れても予定に入りますが動きません。チェックめんどいの。許して。\n'
@@ -185,12 +187,24 @@ async def sendloop(channel):
     # 月火水木金土日
     # 現在の時刻
     d_today = datetime.datetime.now()
-    for item in eventList:
-        if str(d_today.weekday()) == str(item[0]) and str(item[1]) == d_today.strftime('%H:%M'):
+    for item in eventList_week:
+        # 曜日と日時が一致した場合
+        if str(d_today.weekday()) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
+            if str(item[0]) == '9' or str(item[0]) == get_nth_week(today.strftime('%Y')):
             tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
             tempstr = tempstr + str(item[2]) + '\n'
             tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
             await channel.send(tempstr)
-    
+            
+            eventList_week.remove(item)
+            
+def get_nth_week(day):
+    return (day - 1) // 7 + 1
+
+def get_nth_dow(year, month, day):
+    return get_nth_week(day), calendar.weekday(year, month, day)
+
+
+
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
