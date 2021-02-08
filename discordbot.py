@@ -139,7 +139,7 @@ async def on_message(message):
             count = count + 1
         if tempstr == '':
             tempstr = '毎週の通知予定のイベントはありません。\n'
-　　　　　else :
+　　　　　else:
             tempstr = '毎週の通知予定のイベントは以下の通りです\n' + tempstr
 
         for item in eventList_day:
@@ -148,7 +148,7 @@ async def on_message(message):
 
         if tempstr2 == '':
             tempstr2 = '単発の通知予定のイベントはありません。'
-　　　　　else :
+　　　　　else:
             tempstr2 = '単発の通知予定のイベントは以下の通りです\n' + tempstr2
 
         await message.channel.send(tempstr + tempstr2)
