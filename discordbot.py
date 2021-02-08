@@ -72,7 +72,7 @@ async def on_message(message):
     # 通知を追加_日時
     if message.content[:7] == '/addday':
         if len(message.content) <= 8 or message.content[8:].strip().count(' ') != 2:
-            tempstr = 'パラメータは「日付」、「時間」「メッセージ」を半角スペース区切りで指定してください。\n'
+            tempstr = 'パラメータは「日付」、「時間」、「メッセージ」を半角スペース区切りで指定してください。\n'
             tempstr = '「日時」はyyyy/mm/dd形式です。\n'
             tempstr = '「時間」はhh:MM形式です。\n'
             tempstr = tempstr + '2020年10月15日14時20分に「メッセージ」と表示する場合：/addday 2020/10/15 14:20 メッセージ'
@@ -88,7 +88,7 @@ async def on_message(message):
     # 通知を削除_週間
     if message.content[:11] == '/removeweek':
         tempstr = ''
-        if len(message.content) <= 12 or message.content[12:].strip().count(' ') != 1:
+        if len(message.content) <= 12 or message.content[12:].strip().count(' ') != 0:
             tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
             tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
             tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
@@ -107,7 +107,7 @@ async def on_message(message):
     # 通知を削除_日時
     if message.content[:10] == '/removeday':
         tempstr = ''
-        if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 1:
+        if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 0:
             tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
             tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
             tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
