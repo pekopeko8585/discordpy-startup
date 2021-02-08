@@ -189,12 +189,11 @@ async def sendloop(channel):
         # 曜日と日時が一致した場合
         if str(d_today.weekday()) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
             if str(item[0]) == '9' or str(item[0]) == get_nth_week(today.strftime('%Y'),today.strftime('%m'),today.strftime('%D')):
-            tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
-            tempstr = tempstr + str(item[2]) + '\n'
-            tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
-            await channel.send(tempstr)
-            
-            eventList_week.remove(item)
+                tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
+                tempstr = tempstr + str(item[2]) + '\n'
+                tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+                await channel.send(tempstr)
+                eventList_week.remove(item)
             
 def get_nth_week(day):
     return (day - 1) // 7 + 1
