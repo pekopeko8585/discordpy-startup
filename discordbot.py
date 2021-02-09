@@ -192,8 +192,8 @@ async def sendloop(channel):
             await channel.send(int(d_today.strftime('%Y')))
             await channel.send(int(d_today.strftime('%m')))
             await channel.send(int(d_today.strftime('%d')))
-            await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),d_today.strftime('%d')))
-            if str(item[0]) == '9' or str(item[0]) == get_nth_week(d_today.strftime('%Y'),d_today.strftime('%m'),d_today.strftime('%d')):
+            await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
+            if str(item[0]) == '9' or str(item[0]) == get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))):
                 await channel.send('きたよ2')
                 tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
                 tempstr = tempstr + str(item[2]) + '\n'
