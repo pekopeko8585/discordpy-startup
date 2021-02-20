@@ -25,6 +25,29 @@ eventList_week = [yggdrasil]
 yggdrasil2 = ['2020401','21:00','21時から飲み会やります！']
 eventList_day = [yggdrasil2]
 
+
+#定数宣言
+help_addweek = '/addweek：定期的に通知したいイベントを追加します。\n'
++ '　　　パラメータは「第X曜日」、「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
++ '　　　曜日は「月」～「金」、または「毎週」と指定してください。\n'
++ '　　　時間は必ずHH:mm形式の半角の「:」含み5桁で指定してください。\n'
++ '　　　現状適当な数字入れても予定に入りますが動きません。チェックめんどいの。許して。\n'
++ '　　　例として第2水曜日の午前9時に「メッセージ」と表示する場合：/add 2 水 09:00 メッセージ\n'
+
+help_addday = 'パラメータは「日付」、「時間」、「メッセージ」を半角スペース区切りで指定してください。\n'
++ '「日時」はyyyy/mm/dd形式です。\n'
++ '「時間」はhh:MM形式です。\n'
++ '2020年10月15日14時20分に「メッセージ」と表示する場合：/addday 2020/10/15 14:20 メッセージ\n'
+
+help_removeweek = + '/removeweek：通知予定のイベントを削除します。\n'
++ '　　　パラメータは「ID」を半角スペースを挟んで指定してください。\n'
++ '　　　「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
++ '　　　よくわかんねーって人は削除するたびに/viewしてみてください。\n'
+
+help_removeday = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
++ '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
++ 'よくわかんねーって人は削除するたびに/viewしてみてください。\n'
+
 # 起動時に動作する処理
 @client.event
 async def on_ready():
@@ -58,9 +81,7 @@ async def on_message(message):
     # 通知を追加_週間
     if message.content[:8] == '/addweek':
         if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 3:
-            tempstr = 'パラメータは「第X曜日」、「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
-            tempstr = tempstr + '毎週水曜日の20時に「メッセージ」と表示する場合：/addweek 9 2 20:00 メッセージ'
-            await message.channel.send(tempstr)
+            await message.channel.send(help_addweek)
             retutn
         
         newEventList = message.content[9:].split(' ')
@@ -72,11 +93,7 @@ async def on_message(message):
     # 通知を追加_日時
     if message.content[:7] == '/addday':
         if len(message.content) <= 8 or message.content[8:].strip().count(' ') != 2:
-            tempstr = 'パラメータは「日付」、「時間」、「メッセージ」を半角スペース区切りで指定してください。\n'
-            tempstr = '「日時」はyyyy/mm/dd形式です。\n'
-            tempstr = '「時間」はhh:MM形式です。\n'
-            tempstr = tempstr + '2020年10月15日14時20分に「メッセージ」と表示する場合：/addday 2020/10/15 14:20 メッセージ'
-            await message.channel.send(tempstr)
+            await message.channel.send(help_addday)
             retutn
             
         newEventList = message.content[8:].split(' ')
@@ -89,10 +106,7 @@ async def on_message(message):
     if message.content[:11] == '/removeweek':
         tempstr = ''
         if len(message.content) <= 12 or message.content[12:].strip().count(' ') != 0:
-            tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
-            tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
-            tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
-            await message.channel.send(tempstr)
+            await message.channel.send(help_removeweek)
             return
         remove_id = int(message.content[12:].strip())
         if remove_id > len(eventList_week):
@@ -108,10 +122,7 @@ async def on_message(message):
     if message.content[:10] == '/removeday':
         tempstr = ''
         if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 0:
-            tempstr = 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
-            tempstr = tempstr + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
-            tempstr = tempstr + 'よくわかんねーって人は削除するたびに/viewしてみてください。'
-            await message.channel.send(tempstr)
+            await message.channel.send(help_removeday)
             return
         remove_id = int(message.content[11:].strip())
         if remove_id > len(eventList_day):
@@ -138,9 +149,9 @@ async def on_message(message):
             tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
             count = count + 1
         if tempstr == '':
-            tempstr = '毎週の通知予定のイベントはありません。\n'
+            tempstr = '定期通知予定のイベントはありません。\n'
         else:
-            tempstr = '毎週の通知予定のイベントは以下の通りです\n' + tempstr
+            tempstr = '定期知予定のイベントは以下の通りです\n' + tempstr
             
         for item in eventList_day:
             tempstr2 = tempstr2 + 'ID「' + str(count_day) + '」：' + ','.join(item) + '\n'
@@ -157,22 +168,16 @@ async def on_message(message):
     # ヘルプを表示
     if message.content == '/help':
         tempstr = '概要：イベントの通知をするBOTです。\n'
-        tempstr = tempstr + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
-        tempstr = tempstr + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
-        tempstr = tempstr + '/sysdate:現在のサーバー日時を表示します。\n'
-        tempstr = tempstr + '/neko：鳴きます。\n'
-        tempstr = tempstr + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
-        tempstr = tempstr + '/view：現在通知予定のイベントをすべて表示します。\n'
-        tempstr = tempstr + '/addweek：毎週通知したいイベントを追加します。\n'
-        tempstr = tempstr + '　　　パラメータは「第X曜日」、「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
-        tempstr = tempstr + '　　　、曜日は月曜が0、火曜日が1～～～日曜日が6と数字で指定してください。\n'
-        tempstr = tempstr + '　　　時間は必ずHH:mm形式の半角の「:」含み5桁で指定してください。\n'
-        tempstr = tempstr + '　　　現状適当な数字入れても予定に入りますが動きません。チェックめんどいの。許して。\n'
-        tempstr = tempstr + '　　　例として水曜日の午前9時に「メッセージ」と表示する場合：/add 2 09:00 メッセージ\n'
-        tempstr = tempstr + '/removeweek：通知予定のイベントを削除します。\n'
-        tempstr = tempstr + '　　　パラメータは「ID」を半角スペースを挟んで指定してください。\n'
-        tempstr = tempstr + '　　　「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
-        tempstr = tempstr + '　　　よくわかんねーって人は削除するたびに/viewしてみてください。'
+        + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
+        + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
+        + '/sysdate:現在のサーバー日時を表示します。\n'
+        + '/neko：鳴きます。\n'
+        + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
+        + '/view：現在通知予定のイベントをすべて表示します。\n'
+        + help_addweek
+        + help_addday
+        + help_removeweek
+        + help_removeday
         await message.channel.send(tempstr)
         return
         
@@ -186,14 +191,14 @@ async def sendloop(channel):
     d_today = dt.now()
     for item in eventList_week:
         # 曜日と日時が一致した場合
-        if str(dt.weekday()) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
+        if str(dt.strftime('%a')) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
             await channel.send(dt.weekday())
             #await channel.send(item[0])
             #await channel.send(int(d_today.strftime('%Y')))
             #await channel.send(int(d_today.strftime('%m')))
             #await channel.send(int(d_today.strftime('%d')))
             #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            if int(item[0]) == 9 or item[0] == dt.weekday():
+            if int(item[0]) == '毎週' or item[0] == dt.strftime('%a'):
                 await channel.send('きたよ2')
                 tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
                 tempstr = tempstr + str(item[2]) + '\n'
