@@ -19,9 +19,6 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-#時間を日本語表記に変更
-locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
-
 yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
 eventList_week = [yggdrasil]
 
@@ -147,7 +144,7 @@ async def on_message(message):
         
         # テスト
     if message.content == '/test':
-        await message.channel.send('testですver3')
+        await message.channel.send('testですver4')
         retutn
 
     # 通知を表示
@@ -204,6 +201,9 @@ async def sendloop(channel):
     await channel.send(type(dt.strftime('%a')))
     await channel.send(dt.strftime('%a'))
     await channel.send('テスト2' + str(item[1]))
+    
+    #時間を日本語表記に変更
+    locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
 
     for item in eventList_week:
         # 曜日と日時が一致した場合
