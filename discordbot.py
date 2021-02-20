@@ -198,22 +198,22 @@ async def sendloop(channel):
     # 現在の時刻
     dt = datetime.datetime
     d_today = dt.now()
-    await channel.send('topなうです')
-    await channel.send(dt)
-    await channel.send(dt.weekday())
-    await channel.send(w_list[dt.weekday()])
+    await channel.send('topなうです2')
+    await channel.send(d_today)
+    await channel.send(d_today.weekday())
+    await channel.send(w_list[d_today.weekday()])
     await channel.send(str(item[1]))
 
     for item in eventList_week:
         # 曜日と日時が一致した場合
-        if str(w_list[dt.weekday()]) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
-            await channel.send(dt.weekday())
+        if str(w_list[d_today.weekday()]) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
+            await channel.send(d_today.weekday())
             #await channel.send(item[0])
             #await channel.send(int(d_today.strftime('%Y')))
             #await channel.send(int(d_today.strftime('%m')))
             #await channel.send(int(d_today.strftime('%d')))
             #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            if int(item[0]) == '毎週' or item[0] == w_list[dt.weekday()]:
+            if item[0] == '毎週' or item[0] == w_list[d_today.weekday()]:
                 await channel.send('きたよ2')
                 tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
                 tempstr = tempstr + str(item[2]) + '\n'
