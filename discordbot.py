@@ -19,7 +19,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-yggdrasil = ['3','21:00','ユグドラシル開店は本日22時です！']
+yggdrasil = ['2','土','21:00','ユグドラシル開店は本日22時です！']
 eventList_week = [yggdrasil]
 
 yggdrasil2 = ['2020401','21:00','21時から飲み会やります！']
@@ -31,7 +31,8 @@ w_list = ['月', '火', '水', '木', '金', '土', '日']
 help_addweek = (
     '/addweek：定期的に通知したいイベントを追加します。\n'
     + '　　　パラメータは「第X曜日」、「曜日」、「時間」、「メッセージ」を半角スペースを挟んで指定してください。\n'
-    + '　　　曜日は「月」～「金」、または「毎週」と指定してください。\n'
+    + '　　　第X曜日は数字1桁を、毎週の場合は9を入力してください。\n'
+    + '　　　曜日は「月」～「金」で指定してください。\n'
     + '　　　時間は必ずHH:mm形式の半角の「:」含み5桁で指定してください。\n'
     + '　　　現状適当な数字入れても予定に入りますが動きません。チェックめんどいの。許して。\n'
     + '　　　例として第2水曜日の午前9時に「メッセージ」と表示する場合：/add 2 水 09:00 メッセージ\n'
@@ -205,24 +206,23 @@ async def sendloop(channel):
 
     for item in eventList_week:
         # 曜日と日時が一致した場合
+        await channel.send('1つ目' + item[0] + '：' + (get_nth_week(datetime.date.today().day) and now_week))
+        await channel.send('2つ目' + now_week + '：' + item[1])
+        await channel.send('3つ目' + item[2] + '：' + d_today.strftime('%H:%M'))
 
-        await channel.send('1つ目' + now_week + '：' + item[1])
-        await channel.send('2つ目' + tem[2] + '：' + d_today.strftime('%H:%M'))
-
-        if now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
+        if (item[0] == '9' or item[0]) == get_nth_week(datetime.date.today().day) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
             await channel.send(now_week)
             #await channel.send(item[0])
             #await channel.send(int(d_today.strftime('%Y')))
             #await channel.send(int(d_today.strftime('%m')))
             #await channel.send(int(d_today.strftime('%d')))
             #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            if item[0] == '毎週' or item[0] == now_week:
-                await channel.send('きたよ2')
-                tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
-                tempstr = tempstr + item[2] + '\n'
-                tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
-                await channel.send(tempstr)
-                #eventList_week.remove(item)
+            await channel.send('きたよ2')
+            tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
+            tempstr = tempstr + item[2] + '\n'
+            tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+            await channel.send(tempstr)
+            #eventList_week.remove(item)
 
     await channel.send('ループ終わった！')
 
