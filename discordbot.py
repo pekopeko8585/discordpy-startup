@@ -198,7 +198,8 @@ async def sendloop(channel):
     # 現在の時刻
     dt = datetime.datetime
     d_today = dt.now()
-    await channel.send('topなう')
+    await channel.send('topなうです')
+    await channel.send(dt)
     await channel.send(dt.weekday())
     await channel.send(w_list[dt.weekday()])
     await channel.send(str(item[1]))
