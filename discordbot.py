@@ -193,20 +193,20 @@ async def sendloop(channel):
             #await channel.send(int(d_today.strftime('%m')))
             #await channel.send(int(d_today.strftime('%d')))
             #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            if int(item[0]) == 9 or item[0] == dt.weekday()):
+            if int(item[0]) == 9 or item[0] == dt.weekday():
                 await channel.send('きたよ2')
                 tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
                 tempstr = tempstr + str(item[2]) + '\n'
                 tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
                 await channel.send(tempstr)
                 #eventList_week.remove(item)
-            
+
 def get_nth_week(day):
     return (day - 1) // 7 + 1
 
 def get_nth_dow(year, month, day):
     return get_nth_week(day), calendar.weekday(year, month, day)
-
+    
 
 
 # Botの起動とDiscordサーバーへの接続
