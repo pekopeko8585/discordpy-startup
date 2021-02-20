@@ -212,7 +212,7 @@ async def sendloop(channel):
             #await channel.send(int(d_today.strftime('%m')))
             #await channel.send(int(d_today.strftime('%d')))
             #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            if int(item[0]) == '毎週' or item[0] == w_list[dt.weekday():
+            if int(item[0]) == '毎週' or item[0] == w_list[dt.weekday()]:
                 await channel.send('きたよ2')
                 tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
                 tempstr = tempstr + str(item[2]) + '\n'
