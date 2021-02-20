@@ -198,7 +198,7 @@ async def sendloop(channel):
     # 現在の時刻
     dt = datetime.datetime
     d_today = dt.now()
-    await channel.send('topきたよ')
+    await channel.send('topなう')
     await channel.send(dt.weekday())
     await channel.send(w_list[dt.weekday()])
     await channel.send(str(item[1]))
@@ -225,8 +225,6 @@ def get_nth_week(day):
 
 def get_nth_dow(year, month, day):
     return get_nth_week(day), calendar.weekday(year, month, day)
-    
-
 
 # Botの起動とDiscordサーバーへの接続
 client.run(token)
