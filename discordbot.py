@@ -207,7 +207,7 @@ async def sendloop(channel):
         # 曜日と日時が一致した場合
 
         await channel.send('1つ目' + now_week + '：' + item[1])
-        await channel.send('2つ目' + d_today.strftime('%H:%M'))
+        await channel.send('2つ目' + tem[2] + '：' + d_today.strftime('%H:%M'))
 
         if now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
             await channel.send(now_week)
