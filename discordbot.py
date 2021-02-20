@@ -200,31 +200,28 @@ async def sendloop(channel):
     dt = datetime.datetime
     now_week = w_list[datetime.date.today().weekday()]
     d_today = dt.now()
-    await channel.send('topなうです6')
-    #await channel.send(now_week)
-    #await channel.send(item[1])
 
+    tempstr = ''
+
+    #定期通知
     for item in eventList_week:
         # 曜日と日時が一致した場合
-        await channel.send(datetime.date.today().day)
-        await channel.send('1つ目' + item[0] + '：' + str((get_nth_week(datetime.date.today().day))))
-        await channel.send('2つ目' + now_week + '：' + item[1])
-        await channel.send('3つ目' + item[2] + '：' + d_today.strftime('%H:%M'))
+        if (item[0] == '9' or item[0]) == str(get_nth_week(datetime.date.today().day)) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):            
+            tempstr = tempstr + item[3] + '\n\n'
 
-        if (item[0] == '9' or item[0]) == str(get_nth_week(datetime.date.today().day)) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
-            await channel.send(now_week)
-            #await channel.send(item[0])
-            #await channel.send(int(d_today.strftime('%Y')))
-            #await channel.send(int(d_today.strftime('%m')))
-            #await channel.send(int(d_today.strftime('%d')))
-            #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            await channel.send('きたよ2')
-            tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
-            tempstr = tempstr + item[2] + '\n'
-            tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
-            await channel.send(tempstr)
-            #eventList_week.remove(item)
+    #単発通知
+    for item in eventList_day:
+        # 日時が一致した場合
+        if item[0] == d_today.strftime('%Y%m%d') and item[1] == d_today.strftime('%H:%M'):
+            tempstr = tempstr + item[2] + '\n\n'
 
+            await channel.send('remove前')
+            eventList_day[item]
+            await channel.send('remove後')
+
+    if tempstr != '':
+        tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n' + tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+        await channel.send(tempstr)
     await channel.send('ループ終わった！')
 
 def get_nth_week(day):
