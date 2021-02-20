@@ -199,13 +199,17 @@ async def sendloop(channel):
     dt = datetime.datetime
     now_week = w_list[datetime.date.today().weekday()]
     d_today = dt.now()
-    await channel.send('topなうです5')
-    await channel.send(now_week)
-    await channel.send(item[1])
+    await channel.send('topなうです6')
+    #await channel.send(now_week)
+    #await channel.send(item[1])
 
     for item in eventList_week:
         # 曜日と日時が一致した場合
-        if str(now_week) == item[1] and item[2] == d_today.strftime('%H:%M'):
+
+        await channel.send('1つ目' + now_week + '：' + item[1])
+        await channel.send('2つ目' + d_today.strftime('%H:%M'))
+
+        if now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
             await channel.send(now_week)
             #await channel.send(item[0])
             #await channel.send(int(d_today.strftime('%Y')))
@@ -219,6 +223,8 @@ async def sendloop(channel):
                 tempstr = tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
                 await channel.send(tempstr)
                 #eventList_week.remove(item)
+
+    await channel.send('ループ終わった！')
 
 def get_nth_week(day):
     return (day - 1) // 7 + 1
