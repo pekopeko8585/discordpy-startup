@@ -207,12 +207,11 @@ async def sendloop(channel):
     for item in eventList_week:
         # 曜日と日時が一致した場合
         await channel.send(datetime.date.today().day)
-        await channel.send(get_nth_week(datetime.date.today().day))
         await channel.send('1つ目' + item[0] + '：' + (get_nth_week(datetime.date.today().day)))
         await channel.send('2つ目' + now_week + '：' + item[1])
         await channel.send('3つ目' + item[2] + '：' + d_today.strftime('%H:%M'))
 
-        if (item[0] == '9' or item[0]) == get_nth_week(datetime.date.today().day) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
+        if (item[0] == '9' or item[0]) == str(get_nth_week(datetime.date.today().day)) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
             await channel.send(now_week)
             #await channel.send(item[0])
             #await channel.send(int(d_today.strftime('%Y')))
