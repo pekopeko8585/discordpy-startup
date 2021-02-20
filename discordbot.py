@@ -199,10 +199,8 @@ async def sendloop(channel):
     dt = datetime.datetime
     now_week = w_list[datetime.date.today().weekday()]
     d_today = dt.now()
-    await channel.send('topなうです3')
-    await channel.send(dt)
-    await channel.send(dt.weekday())
-    await channel.send(w_list[dt.weekday()])
+    await channel.send('topなうです4')
+    await channel.send(now_week)
     await channel.send(str(item[1]))
 
     for item in eventList_week:
