@@ -25,6 +25,7 @@ eventList_week = [yggdrasil]
 yggdrasil2 = ['2020401','21:00','21時から飲み会やります！']
 eventList_day = [yggdrasil2]
 
+w_list = ['月', '火', '水', '木', '金', '土', '日']
 
 #定数宣言
 help_addweek = (
@@ -201,20 +202,17 @@ async def sendloop(channel):
     await channel.send(type(dt.strftime('%a')))
     await channel.send(dt.strftime('%a'))
     await channel.send('テスト2' + str(item[1]))
-    
-    #時間を日本語表記に変更
-    locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
 
     for item in eventList_week:
         # 曜日と日時が一致した場合
-        if str(dt.strftime('%a')) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
+        if str(w_list(dt.weekday())) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
             await channel.send(dt.weekday())
             #await channel.send(item[0])
             #await channel.send(int(d_today.strftime('%Y')))
             #await channel.send(int(d_today.strftime('%m')))
             #await channel.send(int(d_today.strftime('%d')))
             #await channel.send(get_nth_week(int(d_today.strftime('%Y')),int(d_today.strftime('%m')),int(d_today.strftime('%d'))))
-            if int(item[0]) == '毎週' or item[0] == dt.strftime('%a'):
+            if int(item[0]) == '毎週' or item[0] == w_list(dt.weekday()):
                 await channel.send('きたよ2')
                 tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n'
                 tempstr = tempstr + str(item[2]) + '\n'
