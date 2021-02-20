@@ -144,7 +144,7 @@ async def on_message(message):
         
         # テスト
     if message.content == '/test':
-        await message.channel.send('testです')
+        await message.channel.send('testですver1')
         retutn
 
     # 通知を表示
@@ -197,6 +197,10 @@ async def sendloop(channel):
     # 現在の時刻
     dt = datetime.datetime
     d_today = dt.now()
+    await channel.send('topきたよ')
+    await channel.send('テスト1' + dt.strftime('%a'))
+    await channel.send('テスト2' + str(item[1]))
+
     for item in eventList_week:
         # 曜日と日時が一致した場合
         if str(dt.strftime('%a')) == str(item[1]) and str(item[2]) == d_today.strftime('%H:%M'):
