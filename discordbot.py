@@ -224,7 +224,8 @@ async def sendloop(channel):
             isFirst = False
 
             del eventList_day[count]
-            count += 1
+            count -= 1
+        count += 1
     
     if tempstr != '':
         tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★' + tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
