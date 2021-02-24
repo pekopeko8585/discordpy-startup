@@ -233,7 +233,6 @@ async def sendloop(channel):
             eventList_day[item]
             await channel.send('remove後')
     
-    await channel.send(tempstr)
     if tempstr != '':
         tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n' + tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
         await channel.send(tempstr)
