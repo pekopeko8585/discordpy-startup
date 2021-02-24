@@ -231,7 +231,7 @@ async def sendloop(channel):
             tempstr = tempstr + item[2] + '\n\n'
 
             await channel.send('remove前')
-            eventList_day[item]
+            del eventList_day[count]
             count += 1
             await channel.send('remove後')
     
