@@ -209,7 +209,7 @@ async def sendloop(channel):
         # 曜日と日時が一致した場合  
         if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
             if isFirst == False:
-                tempstr = '\n' + tempstr
+                tempstr = tempstr + '\n'
             tempstr = tempstr + item[3] + '\n'
             await channel.send('debug：' + tempstr)
             isFirst = False
@@ -220,7 +220,7 @@ async def sendloop(channel):
         # 日時が一致した場合
         if item[0] == d_today.strftime('%Y%m%d') and item[1] == d_today.strftime('%H:%M'):
             if isFirst == False:
-                tempstr = '\n' + tempstr
+                tempstr = tempstr + '\n'
             tempstr = tempstr + item[2] + '\n'
             isFirst = False
 
