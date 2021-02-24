@@ -224,6 +224,7 @@ async def sendloop(channel):
             await channel.send(tempstr)
 
     #単発通知
+    count = 0
     for item in eventList_day:
         # 日時が一致した場合
         if item[0] == d_today.strftime('%Y%m%d') and item[1] == d_today.strftime('%H:%M'):
@@ -231,6 +232,7 @@ async def sendloop(channel):
 
             await channel.send('remove前')
             eventList_day[item]
+            count += 1
             await channel.send('remove後')
     
     if tempstr != '':
