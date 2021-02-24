@@ -206,7 +206,7 @@ async def sendloop(channel):
     #定期通知
     for item in eventList_week:
         await channel.send(item[0])
-        await channel.send((item[0] == str(9) or item[0]) == str(get_nth_week(datetime.date.today().day)) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'))
+        await channel.send((item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'))
         #await channel.send(str(9))
         #await channel.send(item[0] == str(9))
         #await channel.send(now_week)
@@ -219,7 +219,7 @@ async def sendloop(channel):
         #await channel.send('---------------------------------------------------')
         
         # 曜日と日時が一致した場合  
-        if (item[0] == str(9) or item[0]) == str(get_nth_week(datetime.date.today().day)) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):            
+        if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):            
             tempstr = tempstr + item[3] + '\n\n'
             await channel.send(tempstr)
 
