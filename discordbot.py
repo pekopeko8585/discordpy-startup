@@ -205,7 +205,7 @@ async def sendloop(channel):
 
     #定期通知
     for item in eventList_week:
-        #await channel.send(item[0])
+        await channel.send(item[0])
         #await channel.send(str(9))
         #await channel.send(item[0] == str(9))
         #await channel.send(now_week)
