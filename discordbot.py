@@ -146,7 +146,7 @@ async def on_message(message):
         
         # テスト
     if message.content == '/test':
-        await message.channel.send('testですver5')
+        await message.channel.send('testですver6')
         retutn
 
     # 通知を表示
