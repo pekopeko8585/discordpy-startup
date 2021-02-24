@@ -206,6 +206,7 @@ async def sendloop(channel):
     #定期通知
     for item in eventList_week:
         await channel.send(item[0])
+        await channel.send((item[0] == str(9) or item[0]) == str(get_nth_week(datetime.date.today().day)) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'))
         #await channel.send(str(9))
         #await channel.send(item[0] == str(9))
         #await channel.send(now_week)
