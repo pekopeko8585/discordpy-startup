@@ -177,17 +177,18 @@ async def on_message(message):
     
     # ヘルプを表示
     if message.content == '/help':
-        tempstr = '概要：イベントの通知をするBOTです。\n'
-        + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
-        + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
-        + '/sysdate:現在のサーバー日時を表示します。\n'
-        + '/neko：鳴きます。\n'
-        + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
-        + '/view：現在通知予定のイベントをすべて表示します。\n'
-        + help_addweek
-        + help_addday
-        + help_removeweek
-        + help_removeday
+        tempstr = ('概要：イベントの通知をするBOTです。\n'
+            + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
+            + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
+            + '/sysdate:現在のサーバー日時を表示します。\n'
+            + '/neko：鳴きます。\n'
+            + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
+            + '/view：現在通知予定のイベントをすべて表示します。\n'
+            + help_addweek
+            + help_addday
+            + help_removeweek
+            + help_removeday
+        )
         await message.channel.send(tempstr)
         return
         
