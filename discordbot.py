@@ -229,7 +229,7 @@ async def sendloop(channel):
         count += 1
     
     if tempstr != '':
-        tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★' + tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+        tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n' + tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
         await channel.send(tempstr)
 
 def get_nth_week(day):
