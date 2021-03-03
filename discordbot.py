@@ -215,7 +215,6 @@ async def sendloop(channel):
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[3] + '\n'
-            await channel.send('debug：' + tempstr)
             isFirst = False
 
     #単発通知
