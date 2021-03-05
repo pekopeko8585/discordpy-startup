@@ -274,10 +274,10 @@ async def sendloop(channel):
 
     #毎日通知
     for item in eventList_everyday:
-        # 曜日と日時が一致した場合
+        #日時が一致した場合
         item0 = datetime.datetime.strptime(item[0], '%H:%M')
         await channel.send(item0)
-        item0 = item0 - datetime.timedelta(minutes=-10)
+        item0 = item0 - datetime.timedelta(minutes=10)
         await channel.send(item0)
         await channel.send('毎日通知3')
         await channel.send(item0.strftime('%H:%M'))
