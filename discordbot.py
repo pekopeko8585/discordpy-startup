@@ -216,6 +216,8 @@ async def sendloop(channel):
         await channel.send('定期2')
         item2 = item2 - datetime.timedelta(minutes=-10)
         await channel.send('定期3')
+        await channel.send(item2.strftime('%H:%M'))
+        await channel.send(d_today.strftime('%H:%M'))
         if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item2.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
@@ -232,7 +234,9 @@ async def sendloop(channel):
         await channel.send('単発2')
         item1 = item1 - datetime.timedelta(minutes=-10)
         await channel.send('単発3')
-        if item[0] == d_today.strftime('%Y%m%d') and item1 == d_today.strftime('%H:%M'):
+        await channel.send(item1.strftime('%H:%M'))
+        await channel.send(d_today.strftime('%H:%M'))
+        if item[0] == d_today.strftime('%Y%m%d') and item1.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[2] + '\n'
