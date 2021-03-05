@@ -138,10 +138,15 @@ async def on_message(message):
             await message.channel.send(help_addeveryday)
             retutn
             
+        await message.channel.send('毎日のデバッグ1')
         newEventList = message.content[13:].split(' ')
+        await message.channel.send('毎日のデバッグ2')
         eventList_everyday.append(newEventList) 
+        await message.channel.send('毎日のデバッグ3')
         await message.channel.send('新しいイベントを追加しました。')
+        await message.channel.send('毎日のデバッグ4')
         await message.channel.send(newEventList)
+        await message.channel.send('毎日のデバッグ5')
         return
     
     # 通知を削除_週間
@@ -201,8 +206,19 @@ async def on_message(message):
     if message.content == '/view':
         count = 0
         count_day = 0
+        count_everyday = 0
         tempstr = ''
         tempstr2 = ''
+        tempstr3 = ''
+        
+        for item in eventList_everyday:
+            tempstr3 = tempstr3 + 'ID「' + str(count_everyday) + '」：' + ','.join(item) + '\n'
+            count_everyday = count_everyday + 1
+        if tempstr == '':
+            tempstr3 = '毎日通知予定のイベントはありません。\n'
+        else:
+            tempstr3 = '毎日知予定のイベントは以下の通りです\n' + tempstr
+        
         for item in eventList_week:
             tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
             count = count + 1
@@ -220,7 +236,7 @@ async def on_message(message):
         else:
             tempstr2 = '単発の通知予定のイベントは以下の通りです\n' + tempstr2
             
-        await message.channel.send(tempstr + tempstr2)
+        await message.channel.send(tempstr3 + tempstr + tempstr2)
         return
     
     # ヘルプを表示
