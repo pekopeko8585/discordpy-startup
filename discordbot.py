@@ -210,21 +210,28 @@ async def sendloop(channel):
 
     #定期通知
     for item in eventList_week:
-        # 曜日と日時が一致した場合  
+        # 曜日と日時が一致した場合
+        await channel.send('定期1')
         item2 = datetime.datetime.strptime(item[2], '%H:%M')
+        await channel.send('定期2')
         item2 = item2 - datetime.timedelta(minutes=-10)
+        await channel.send('定期3')
         if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item2.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[3] + '\n'
             isFirst = False
+        await channel.send('定期4')
 
     #単発通知
     count = 0
     for item in eventList_day:
         # 日時が一致した場合
+        await channel.send('単発1')
         item1 = datetime.datetime.strptime(item[1], '%H:%M')
+        await channel.send('単発2')
         item1 = item1 - datetime.timedelta(minutes=-10)
+        await channel.send('単発3')
         if item[0] == d_today.strftime('%Y%m%d') and item1 == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
@@ -233,11 +240,14 @@ async def sendloop(channel):
 
             del eventList_day[count]
             count -= 1
+            await channel.send('単発4')
         count += 1
     
     if tempstr != '':
         tempstr = '--------------10分後に下記イベントが行われます。--------------\n' + tempstr
         await channel.send(tempstr)
+    
+    await channel.send('ループラスト')
 
 def get_nth_week(day):
     return (day - 1) // 7 + 1
