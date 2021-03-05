@@ -185,7 +185,7 @@ async def on_message(message):
             await message.channel.send(help_removeeveryday)
             await message.channel.send('削除3')
             return
-        remove_id = int(message.content[12:].strip())
+        remove_id = int(message.content[16:].strip())
         await message.channel.send('削除4')
         if remove_id > len(eventList_everyday):
             await message.channel.send('削除5')
