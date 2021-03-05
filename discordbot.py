@@ -20,11 +20,14 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-yggdrasil = ['2','土','21:00','ユグドラシル開店は本日22時です！']
-eventList_week = [yggdrasil]
+list1 = ['2','土','21:00','本日22時からイベントです！']
+eventList_week = [list1]
 
-yggdrasil2 = ['2020401','21:00','21時から飲み会やります！']
-eventList_day = [yggdrasil2]
+list2 = ['2020401','21:00','21時から飲み会やります！']
+eventList_day = [list2]
+
+list3 = ['22:00','22時から毎日夜ご飯']
+eventList_everyday = [list3]
 
 w_list = ['月', '火', '水', '木', '金', '土', '日']
 
@@ -45,6 +48,13 @@ help_addday = (
     + '　　　「日時」はyyyymmdd形式です。\n'
     + '　　　「時間」はhh:MM形式です。\n'
     + '　　　2020年10月15日14時20分に「メッセージ」と表示する場合：/addday 20201015 14:20 メッセージ\n'
+)
+
+help_addeveryday = (
+    '/addeveryday：毎日通知したいイベントを追加します。\n'
+    + '　　　パラメータは「時間」、「メッセージ」を半角スペース区切りで指定してください。\n'
+    + '　　　「時間」はhh:MM形式です。\n'
+    + '　　　毎日21時10分に「メッセージ」と表示する場合：/addeveryday 21:10 メッセージ\n'
 )
 
 help_removeweek = (
@@ -103,7 +113,7 @@ async def on_message(message):
         await message.channel.send(newEventList)
         return
         
-    # 通知を追加_日時
+    # 通知を追加_単発
     if message.content[:7] == '/addday':
         if len(message.content) <= 8 or message.content[8:].strip().count(' ') != 2:
             await message.channel.send(help_addday)
@@ -111,6 +121,18 @@ async def on_message(message):
             
         newEventList = message.content[8:].split(' ')
         eventList_day.append(newEventList) 
+        await message.channel.send('新しいイベントを追加しました。')
+        await message.channel.send(newEventList)
+        return
+    
+    # 通知を追加_毎日
+    if message.content[:12] == '/addeveryday':
+        if len(message.content) <= 13 or message.content[13:].strip().count(' ') != 1:
+            await message.channel.send(help_addeveryday)
+            retutn
+            
+        newEventList = message.content[13:].split(' ')
+        eventList_everyday.append(newEventList) 
         await message.channel.send('新しいイベントを追加しました。')
         await message.channel.send(newEventList)
         return
@@ -131,7 +153,7 @@ async def on_message(message):
         eventList_week.pop(remove_id)
         retutn
         
-    # 通知を削除_日時
+    # 通知を削除_単発
     if message.content[:10] == '/removeday':
         tempstr = ''
         if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 0:
@@ -145,6 +167,22 @@ async def on_message(message):
         tempstr = str(eventList_day[remove_id])
         await message.channel.send('右記のイベントを削除します。：' + tempstr) 
         eventList_day.pop(remove_id)
+        retutn
+        
+    # 通知を削除_毎日
+    if message.content[:15] == '/removeeveryday':
+        tempstr = ''
+        if len(message.content) <= 16 or message.content[16:].strip().count(' ') != 0:
+            await message.channel.send(help_removeeveryday)
+            return
+        remove_id = int(message.content[12:].strip())
+        if remove_id > len(eventList_everyday):
+            await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+            return
+        
+        tempstr = str(eventList_everyday[remove_id])
+        await message.channel.send('右記のイベントを削除します。：' + tempstr) 
+        eventList_everyday.pop(remove_id)
         retutn
         
         # テスト
