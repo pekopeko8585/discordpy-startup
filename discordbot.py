@@ -214,10 +214,10 @@ async def on_message(message):
         for item in eventList_everyday:
             tempstr3 = tempstr3 + 'ID「' + str(count_everyday) + '」：' + ','.join(item) + '\n'
             count_everyday = count_everyday + 1
-        if tempstr == '':
+        if tempstr3 == '':
             tempstr3 = '毎日通知予定のイベントはありません。\n'
         else:
-            tempstr3 = '毎日知予定のイベントは以下の通りです\n' + tempstr
+            tempstr3 = '毎日知予定のイベントは以下の通りです\n' + tempstr3
         
         for item in eventList_week:
             tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
