@@ -211,7 +211,9 @@ async def sendloop(channel):
     #定期通知
     for item in eventList_week:
         # 曜日と日時が一致した場合  
-        if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item[2] == d_today.strftime('%H:%M'):
+        item2 = datetime.datetime.strptime(item[2], '%H:%M')
+        item2 = item2 - datetime.timedelta(minutes=-10)
+        if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item2.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[3] + '\n'
@@ -221,7 +223,9 @@ async def sendloop(channel):
     count = 0
     for item in eventList_day:
         # 日時が一致した場合
-        if item[0] == d_today.strftime('%Y%m%d') and item[1] == d_today.strftime('%H:%M'):
+        item1 = datetime.datetime.strptime(item[1], '%H:%M')
+        item1 = item1 - datetime.timedelta(minutes=-10)
+        if item[0] == d_today.strftime('%Y%m%d') and item1 == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[2] + '\n'
@@ -232,7 +236,7 @@ async def sendloop(channel):
         count += 1
     
     if tempstr != '':
-        tempstr = '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★\n' + tempstr + '★★★★★★★★★★★★イベントのお知らせ★★★★★★★★★★★★'
+        tempstr = '--------------10分後に下記イベントが行われます。--------------\n' + tempstr
         await channel.send(tempstr)
 
 def get_nth_week(day):
