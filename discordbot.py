@@ -138,15 +138,10 @@ async def on_message(message):
             await message.channel.send(help_addeveryday)
             retutn
             
-        await message.channel.send('毎日のデバッグ1')
         newEventList = message.content[13:].split(' ')
-        await message.channel.send('毎日のデバッグ2')
         eventList_everyday.append(newEventList) 
-        await message.channel.send('毎日のデバッグ3')
         await message.channel.send('新しいイベントを追加しました。')
-        await message.channel.send('毎日のデバッグ4')
         await message.channel.send(newEventList)
-        await message.channel.send('毎日のデバッグ5')
         return
     
     # 通知を削除_週間
@@ -183,13 +178,19 @@ async def on_message(message):
         
     # 通知を削除_毎日
     if message.content[:15] == '/removeeveryday':
+        await message.channel.send('削除1')
         tempstr = ''
         if len(message.content) <= 16 or message.content[16:].strip().count(' ') != 0:
+            await message.channel.send('削除2')
             await message.channel.send(help_removeeveryday)
+            await message.channel.send('削除3')
             return
         remove_id = int(message.content[12:].strip())
+        await message.channel.send('削除4')
         if remove_id > len(eventList_everyday):
+            await message.channel.send('削除5')
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+            await message.channel.send('削除6')
             return
         
         tempstr = str(eventList_everyday[remove_id])
