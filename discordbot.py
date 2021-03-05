@@ -260,7 +260,7 @@ async def sendloop(channel):
         # 曜日と日時が一致した場合
         item0 = datetime.datetime.strptime(item[0], '%H:%M')
         item0 = item0 - datetime.timedelta(minutes=-10)
-        if (item0.strftime('%H:%M') == d_today.strftime('%H:%M'):
+        if item0.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[1] + '\n'
