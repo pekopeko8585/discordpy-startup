@@ -178,19 +178,13 @@ async def on_message(message):
         
     # 通知を削除_毎日
     if message.content[:15] == '/removeeveryday':
-        await message.channel.send('削除1')
         tempstr = ''
         if len(message.content) <= 16 or message.content[16:].strip().count(' ') != 0:
-            await message.channel.send('削除2')
             await message.channel.send(help_removeeveryday)
-            await message.channel.send('削除3')
             return
         remove_id = int(message.content[16:].strip())
-        await message.channel.send('削除4')
         if remove_id > len(eventList_everyday):
-            await message.channel.send('削除5')
             await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
-            await message.channel.send('削除6')
             return
         
         tempstr = str(eventList_everyday[remove_id])
@@ -203,7 +197,7 @@ async def on_message(message):
         await message.channel.send('testですver6')
         retutn
 
-    # 通知を表示
+    # 通知予定を表示
     if message.content == '/view':
         count = 0
         count_day = 0
@@ -277,7 +271,7 @@ async def sendloop(channel):
         #日時が一致した場合
         item0 = datetime.datetime.strptime(item[0], '%H:%M')
         await channel.send(item0)
-        item0 = item0 - datetime.timedelta(minutes=10)
+        item0 = item0 + datetime.timedelta(minutes=-10)
         await channel.send(item0)
         await channel.send('毎日通知3')
         await channel.send(item0.strftime('%H:%M'))
@@ -296,7 +290,7 @@ async def sendloop(channel):
     for item in eventList_week:
         # 曜日と日時が一致した場合
         item2 = datetime.datetime.strptime(item[2], '%H:%M')
-        item2 = item2 - datetime.timedelta(minutes=-10)
+        item2 = item2 + datetime.timedelta(minutes=-10)
         if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item2.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
@@ -308,7 +302,7 @@ async def sendloop(channel):
     for item in eventList_day:
         # 日時が一致した場合
         item1 = datetime.datetime.strptime(item[1], '%H:%M')
-        item1 = item1 - datetime.timedelta(minutes=-10)
+        item1 = item1 + datetime.timedelta(minutes=-10)
         if item[0] == d_today.strftime('%Y%m%d') and item1.strftime('%H:%M') == d_today.strftime('%H:%M'):
             if isFirst == False:
                 tempstr = tempstr + '\n'
