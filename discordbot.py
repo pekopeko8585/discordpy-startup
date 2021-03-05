@@ -66,16 +66,16 @@ help_removeweek = (
 
 help_removeday = (
     '/removeday:単発通知予定のイベントを削除します。\n'
-    + 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
-    + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
-    + 'よくわかんねーって人は削除するたびに/viewしてみてください。\n'
+    + '　　　パラメータは「ID」を半角スペースを挟んで指定してください。\n'
+    + '　　　「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
+    + '　　　よくわかんねーって人は削除するたびに/viewしてみてください。\n'
 )
 
 help_removeeveryday = (
     '/removeeveryday:毎日通知予定のイベントを削除します。\n'
-    + 'パラメータは「ID」を半角スペースを挟んで指定してください。\n'
-    + '「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
-    + 'よくわかんねーって人は削除するたびに/viewしてみてください。\n'
+    + '　　　パラメータは「ID」を半角スペースを挟んで指定してください。\n'
+    + '　　　「ID」は/viewコマンドで確認できます。なお、INDEXをIDとしているため削除するたびにIDは変動します。\n'
+    + '　　　よくわかんねーって人は削除するたびに/viewしてみてください。\n'
 )
 
 # 起動時に動作する処理
@@ -270,21 +270,12 @@ async def sendloop(channel):
     for item in eventList_everyday:
         #日時が一致した場合
         item0 = datetime.datetime.strptime(item[0], '%H:%M')
-        await channel.send(item0)
         item0 = item0 + datetime.timedelta(minutes=-10)
-        await channel.send(item0)
-        await channel.send('毎日通知3')
-        await channel.send(item0.strftime('%H:%M'))
-        await channel.send(d_today.strftime('%H:%M'))
         if item0.strftime('%H:%M') == d_today.strftime('%H:%M'):
-            await channel.send('毎日通知4')
             if isFirst == False:
                 tempstr = tempstr + '\n'
             tempstr = tempstr + item[1] + '\n'
             isFirst = False
-            await channel.send('毎日通知5')
-    
-    await channel.send('毎日通知6')
     
     #定期通知
     for item in eventList_week:
