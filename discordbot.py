@@ -115,6 +115,7 @@ async def on_message(message):
     # 通知を開始
     if message.content == '/remind':
         await message.channel.send('これより登録されているイベントを指定時間に通知します。')
+        await message.channel.send(type(message.channel))
         sendloop.start(message.channel)
         return
     
