@@ -21,17 +21,17 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()   
 
 list100 = ['2','土','21:00','本日22時からイベントです！']
-lsit101 = ['9','金','21:00','3Dボンバーマン大会']
-lsit102 = ['9','水','21:50','ユグドラシル']
-lsit103 = ['9','木','22:00','関西弁集会']
-lsit104 = ['9','木','22:00','VR方言酒場のまってら']
-lsit105 = ['9','火','22:00','イケメン喫茶(ブラッコリーさん所)']
-lsit106 = ['9','月','22:00','撮影の集い']
-lsit107 = ['9','水','21:00','謎解きワールド巡り｢#謎めぐり｣']
-lsit108 = ['9','木','21:00','初心者向けワールドツアー']
-lsit109 = ['9','日','15:00','授乳Cafeキタリナ「ID:Hoshi_Lime」']
 
-eventList_week = [list100,list101,list102,list103,list104,list105,list106,list107,list108,list109]
+eventList_week = [list100]
+eventList_week.append('9 金 21:00 3Dボンバーマン大会'.split(' '))
+eventList_week.append('9 水 21:50 ユグドラシル'.split(' '))
+eventList_week.append('9 木 22:00 関西弁集会'.split(' '))
+eventList_week.append('9 木 22:00 VR方言酒場のまってら'.split(' '))
+eventList_week.append('9 火 22:00 イケメン喫茶(ブラッコリーさん所))'.split(' '))
+eventList_week.append('9 月 22:00 撮影の集い'.split(' '))
+eventList_week.append('9 水 21:00 謎解きワールド巡り｢#謎めぐり｣'.split(' '))
+eventList_week.append('9 木 21:00 初心者向けワールドツアー'.split(' '))
+eventList_week.append('9 日 15:00 授乳Cafeキタリナ「ID:Hoshi_Lime」'.split(' '))
 
 list200 = ['1900101','00:00','おばけの会']
 eventList_day = [list200]
