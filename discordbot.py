@@ -18,16 +18,36 @@ import asyncio
 token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
-client = discord.Client()
+client = discord.Client()   
 
-list1 = ['2','土','21:00','本日22時からイベントです！']
-eventList_week = [list1]
+list100 = ['2','土','21:00','本日22時からイベントです！']
 
-list2 = ['2020401','21:00','21時から飲み会やります！']
-eventList_day = [list2]
+lsit101 = ['9','金','21:00','3Dボンバーマン大会']
+lsit102 = ['9','水','21:50','ユグドラシル']
+lsit103 = ['9','木','22:00','関西弁集会']
+lsit104 = ['9','木','22:00','VR方言酒場のまってら']
+lsit105 = ['9','火','22:00','イケメン喫茶(ブラッコリーさん所)']
+lsit106 = ['9','月','22:00','撮影の集い']
+lsit107 = ['9','水','21:00','謎解きワールド巡り｢#謎めぐり｣']
+lsit108 = ['9','木','21:00','初心者向けワールドツアー']
+lsit109 = ['9','日','15:00','授乳Cafeキタリナ「ID:Hoshi_Lime」']
 
-list3 = ['22:00','22時から毎日夜ご飯']
-eventList_everyday = [list3]
+eventList_week = [list100]
+eventList_week.append(list101) 
+eventList_week.append(list102) 
+eventList_week.append(list103) 
+eventList_week.append(list104) 
+eventList_week.append(list105) 
+eventList_week.append(list106) 
+eventList_week.append(list107) 
+eventList_week.append(list108) 
+eventList_week.append(list109) 
+
+list200 = ['1900101','00:00','おばけの会']
+eventList_day = [list200]
+
+list300 = ['22:00','マイジュウ']
+eventList_everyday = [list300]
 
 w_list = ['月', '火', '水', '木', '金', '土', '日']
 
