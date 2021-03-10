@@ -209,6 +209,7 @@ async def on_message(message):
     if message.content == '/test':
         await message.channel.send(CHANNEL_ID)
         channel = client.get_channel(CHANNEL_ID)
+        await message.channel.send('ちゃんねる')
         await message.channel.send(channel)
         await cchannel.send('チャンネル特定したぞうぉううぉう')
         retutn
