@@ -18,7 +18,9 @@ import asyncio
 token = os.environ['DISCORD_BOT_TOKEN']
 
 # 接続に必要なオブジェクトを生成
-client = discord.Client()   
+client = discord.Client()
+
+ch_id = "817245146771882014"
 
 list100 = ['2','土','21:00','本日22時からイベントです！']
 
@@ -205,7 +207,7 @@ async def on_message(message):
         
         # テスト
     if message.content == '/test':
-        await message.channel.send('testですver6')
+        await client.send_message(ch_id, "チャンネル特定したぞうぉううぉう")
         retutn
 
     # 通知予定を表示
