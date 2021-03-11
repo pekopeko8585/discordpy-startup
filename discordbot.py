@@ -20,7 +20,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-CHANNEL_ID = "817245146771882014"
+CHANNEL_ID = "807787222208217148"
 
 list100 = ['2','土','21:00','本日22時からイベントです！']
 
