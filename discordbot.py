@@ -210,9 +210,7 @@ async def on_message(message):
         await message.channel.send(CHANNEL_ID)
         channel = client.get_channel(CHANNEL_ID)
         await message.channel.send('ちゃんねる')
-        await message.channel.send(channel)
-        await message.channel.send('ちゃんねる2')
-        await cchannel.send('チャンネル特定したぞうぉううぉう')
+        await channel.send('チャンネル特定したぞうぉううぉう')
         retutn
 
     # 通知予定を表示
