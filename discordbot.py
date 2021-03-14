@@ -213,8 +213,8 @@ async def on_message(message):
         
             # テスト
         if message.content == '/test':
-            channel = client.get_channel(CHANNEL_ID)
-            await channel.send('チャンネル特定したぞうぉううぉう')
+            error_channel = client.get_channel(ERROR_CHANNEL_ID)
+            await error_channel.send('testだよーん')
             return
 
         # 通知予定を表示
