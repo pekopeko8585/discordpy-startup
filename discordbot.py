@@ -99,175 +99,177 @@ async def on_ready():
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
-    # メッセージ送信者がBotだった場合は無視する
-    if message.author.bot:
-        return
+    try:
+        # メッセージ送信者がBotだった場合は無視する
+        if message.author.bot:
+            return
         
-    # システム日付を返す。
-    if message.content == '/sysdate':
-        d_today = datetime.datetime.now()
-        await message.channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
-        return
+        # システム日付を返す。
+        if message.content == '/sysdate':
+            d_today = datetime.datetime.now()
+            await message.channel.send(d_today.strftime('%Y-%m-%d %H:%M:%S'))
+            return
     
-    # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '/neko':
-        await message.channel.send('にゃーん')
-        return
+        # 「/neko」と発言したら「にゃーん」が返る処理
+        if message.content == '/neko':
+            await message.channel.send('にゃーん')
+            return
     
-    # 通知を開始
-    if message.content == '/remind':
-        await message.channel.send('これより登録されているイベントを指定時間に通知します。')
-        await message.channel.send(type(message.channel))
-        sendloop.start(message.channel)
-        return
+        # 通知を開始
+        if message.content == '/remind':
+            await message.channel.send('これより登録されているイベントを指定時間に通知します。')
+            sendloop.start(message.channel)
+            return
     
-    # 通知を追加_週間
-    if message.content[:8] == '/addweek':
-        if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 3:
-            await message.channel.send(help_addweek)
-            retutn
+        # 通知を追加_週間
+        if message.content[:8] == '/addweek':
+            if len(message.content) <= 9 or message.content[9:].strip().count(' ') != 3:
+                await message.channel.send(help_addweek)
+                retutn
         
-        newEventList = message.content[9:].split(' ')
-        eventList_week.append(newEventList)
-        await message.channel.send('新しいイベントを追加しました。')
-        await message.channel.send(newEventList)
-        return
+            newEventList = message.content[9:].split(' ')
+            eventList_week.append(newEventList)
+            await message.channel.send('新しいイベントを追加しました。')
+            await message.channel.send(newEventList)
+            return
         
-    # 通知を追加_単発
-    if message.content[:7] == '/addday':
-        if len(message.content) <= 8 or message.content[8:].strip().count(' ') != 2:
-            await message.channel.send(help_addday)
-            retutn
+        # 通知を追加_単発
+        if message.content[:7] == '/addday':
+            if len(message.content) <= 8 or message.content[8:].strip().count(' ') != 2:
+                await message.channel.send(help_addday)
+                retutn
             
-        newEventList = message.content[8:].split(' ')
-        eventList_day.append(newEventList) 
-        await message.channel.send('新しいイベントを追加しました。')
-        await message.channel.send(newEventList)
-        return
+            newEventList = message.content[8:].split(' ')
+            eventList_day.append(newEventList) 
+            await message.channel.send('新しいイベントを追加しました。')
+            await message.channel.send(newEventList)
+            return
     
-    # 通知を追加_毎日
-    if message.content[:12] == '/addeveryday':
-        if len(message.content) <= 13 or message.content[13:].strip().count(' ') != 1:
-            await message.channel.send(help_addeveryday)
-            retutn
+        # 通知を追加_毎日
+        if message.content[:12] == '/addeveryday':
+            if len(message.content) <= 13 or message.content[13:].strip().count(' ') != 1:
+                await message.channel.send(help_addeveryday)
+                retutn
             
-        newEventList = message.content[13:].split(' ')
-        eventList_everyday.append(newEventList) 
-        await message.channel.send('新しいイベントを追加しました。')
-        await message.channel.send(newEventList)
-        return
+            newEventList = message.content[13:].split(' ')
+            eventList_everyday.append(newEventList) 
+            await message.channel.send('新しいイベントを追加しました。')
+            await message.channel.send(newEventList)
+            return
     
-    # 通知を削除_週間
-    if message.content[:11] == '/removeweek':
-        tempstr = ''
-        if len(message.content) <= 12 or message.content[12:].strip().count(' ') != 0:
-            await message.channel.send(help_removeweek)
-            return
-        remove_id = int(message.content[12:].strip())
-        if remove_id > len(eventList_week):
-            await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
-            return
+        # 通知を削除_週間
+        if message.content[:11] == '/removeweek':
+            tempstr = ''
+            if len(message.content) <= 12 or message.content[12:].strip().count(' ') != 0:
+                await message.channel.send(help_removeweek)
+                return
+            remove_id = int(message.content[12:].strip())
+            if remove_id > len(eventList_week):
+                await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+                return
         
-        tempstr = str(eventList_week[remove_id])
-        await message.channel.send('右記のイベントを削除します。：' + tempstr) 
-        eventList_week.pop(remove_id)
-        retutn
+            tempstr = str(eventList_week[remove_id])
+            await message.channel.send('右記のイベントを削除します。：' + tempstr) 
+            eventList_week.pop(remove_id)
+            retutn
         
-    # 通知を削除_単発
-    if message.content[:10] == '/removeday':
-        tempstr = ''
-        if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 0:
-            await message.channel.send(help_removeday)
-            return
-        remove_id = int(message.content[11:].strip())
-        if remove_id > len(eventList_day):
-            await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
-            return
+        # 通知を削除_単発
+        if message.content[:10] == '/removeday':
+            tempstr = ''
+            if len(message.content) <= 11 or message.content[11:].strip().count(' ') != 0:
+                await message.channel.send(help_removeday)
+                return
+            remove_id = int(message.content[11:].strip())
+            if remove_id > len(eventList_day):
+                await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+                return
         
-        tempstr = str(eventList_day[remove_id])
-        await message.channel.send('右記のイベントを削除します。：' + tempstr) 
-        eventList_day.pop(remove_id)
-        retutn
+            tempstr = str(eventList_day[remove_id])
+            await message.channel.send('右記のイベントを削除します。：' + tempstr) 
+            eventList_day.pop(remove_id)
+            retutn
         
-    # 通知を削除_毎日
-    if message.content[:15] == '/removeeveryday':
-        tempstr = ''
-        if len(message.content) <= 16 or message.content[16:].strip().count(' ') != 0:
-            await message.channel.send(help_removeeveryday)
-            return
-        remove_id = int(message.content[16:].strip())
-        if remove_id > len(eventList_everyday):
-            await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
-            return
+        # 通知を削除_毎日
+        if message.content[:15] == '/removeeveryday':
+            tempstr = ''
+            if len(message.content) <= 16 or message.content[16:].strip().count(' ') != 0:
+                await message.channel.send(help_removeeveryday)
+                return
+            remove_id = int(message.content[16:].strip())
+            if remove_id > len(eventList_everyday):
+                await message.channel.send('存在しないIDです。/viewコマンドでIDを確認してください。')
+                return
         
-        tempstr = str(eventList_everyday[remove_id])
-        await message.channel.send('右記のイベントを削除します。：' + tempstr) 
-        eventList_everyday.pop(remove_id)
-        retutn
+            tempstr = str(eventList_everyday[remove_id])
+            await message.channel.send('右記のイベントを削除します。：' + tempstr) 
+            eventList_everyday.pop(remove_id)
+            retutn
         
-        # テスト
-    if message.content == '/test':
-        await message.channel.send(CHANNEL_ID)
-        channel = client.get_channel(CHANNEL_ID)
-        await message.channel.send('ちゃんねる')
-        await channel.send('チャンネル特定したぞうぉううぉう')
-        retutn
+            # テスト
+        if message.content == '/test':
+            await message.channel.send(CHANNEL_ID)
+            channel = client.get_channel(CHANNEL_ID)
+            await message.channel.send('ちゃんねる')
+            await channel.send('チャンネル特定したぞうぉううぉう')
+            retutn
 
-    # 通知予定を表示
-    if message.content == '/view':
-        count = 0
-        count_day = 0
-        count_everyday = 0
-        tempstr = ''
-        tempstr2 = ''
-        tempstr3 = ''
+        # 通知予定を表示
+        if message.content == '/view':
+            count = 0
+            count_day = 0
+            count_everyday = 0
+            tempstr = ''
+            tempstr2 = ''
+            tempstr3 = ''
         
-        for item in eventList_everyday:
-            tempstr3 = tempstr3 + 'ID「' + str(count_everyday) + '」：' + ','.join(item) + '\n'
-            count_everyday = count_everyday + 1
-        if tempstr3 == '':
-            tempstr3 = '毎日通知予定のイベントはありません。\n'
-        else:
-            tempstr3 = '毎日知予定のイベントは以下の通りです\n' + tempstr3
+            for item in eventList_everyday:
+                tempstr3 = tempstr3 + 'ID「' + str(count_everyday) + '」：' + ','.join(item) + '\n'
+                count_everyday = count_everyday + 1
+            if tempstr3 == '':
+                tempstr3 = '毎日通知予定のイベントはありません。\n'
+            else:
+                tempstr3 = '毎日知予定のイベントは以下の通りです\n' + tempstr3
         
-        for item in eventList_week:
-            tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
-            count = count + 1
-        if tempstr == '':
-            tempstr = '定期通知予定のイベントはありません。\n'
-        else:
-            tempstr = '定期知予定のイベントは以下の通りです\n' + tempstr
+            for item in eventList_week:
+                tempstr = tempstr + 'ID「' + str(count) + '」：' + ','.join(item) + '\n'
+                count = count + 1
+            if tempstr == '':
+                tempstr = '定期通知予定のイベントはありません。\n'
+            else:
+                tempstr = '定期知予定のイベントは以下の通りです\n' + tempstr
             
-        for item in eventList_day:
-            tempstr2 = tempstr2 + 'ID「' + str(count_day) + '」：' + ','.join(item) + '\n'
-            count_day = count_day + 1
+            for item in eventList_day:
+                tempstr2 = tempstr2 + 'ID「' + str(count_day) + '」：' + ','.join(item) + '\n'
+                count_day = count_day + 1
 
-        if tempstr2 == '':
-            tempstr2 = '単発の通知予定のイベントはありません。'
-        else:
-            tempstr2 = '単発の通知予定のイベントは以下の通りです\n' + tempstr2
+            if tempstr2 == '':
+                tempstr2 = '単発の通知予定のイベントはありません。'
+            else:
+                tempstr2 = '単発の通知予定のイベントは以下の通りです\n' + tempstr2
             
-        await message.channel.send(tempstr3 + tempstr + tempstr2)
-        return
+            await message.channel.send(tempstr3 + tempstr + tempstr2)
+            return
     
-    # ヘルプを表示
-    if message.content == '/help':
-        tempstr = ('概要：イベントの通知をするBOTです。\n'
-            + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
-            + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
-            + '/sysdate:現在のサーバー日時を表示します。\n'
-            + '/neko：鳴きます。\n'
-            + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
-            + '/view：現在通知予定のイベントをすべて表示します。\n'
-            + help_addweek
-            + help_addday
-            + help_addeveryday
-            + help_removeweek
-            + help_removeday
-            + help_removeeveryday
-        )
-        await message.channel.send(tempstr)
-        return
+        # ヘルプを表示
+        if message.content == '/help':
+            tempstr = ('概要：イベントの通知をするBOTです。\n'
+                + '　　　曜日、時間、メッセージを指定して毎週決まった時刻に通知します。\n'
+                + '↓↓↓↓↓↓↓↓↓↓↓↓↓↓コマンド一覧↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n'
+                + '/sysdate:現在のサーバー日時を表示します。\n'
+                + '/neko：鳴きます。\n'
+                + '/remind：通知処理を開始します。基本的に一回のみでOKなので再起動時以外使用しないでください。\n'
+                + '/view：現在通知予定のイベントをすべて表示します。\n'
+                + help_addweek
+                + help_addday
+                + help_addeveryday
+                + help_removeweek
+                + help_removeday
+                + help_removeeveryday
+            )
+            await message.channel.send(tempstr)
+            return
+    except Exception as e:
+        await message.channel.send(e)
         
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
