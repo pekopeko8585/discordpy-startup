@@ -95,8 +95,6 @@ help_removeeveryday = (
 @client.event
 async def on_ready():
     try:
-        tuuchi_channel = client.get_channel(TUUCHI_CHANNEL_ID)
-        tuuchi_channel.send('サーバーが勝手に再起動しやがりました。')
         sendloop.start(tuuchi_channel)
     except Exception as e:
         error_channel = client.get_channel(ERROR_CHANNEL_ID)
