@@ -20,7 +20,11 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-CHANNEL_ID = 817245146771882014
+TUUCHI_CHANNEL_ID = 817245146771882014
+tuuchi_channel = client.get_channel(CHANNEL_ID)
+
+ERROR_CHANNEL_ID = 820499967764332583
+error_channel = client.get_channel(CHANNEL_ID)
 
 list100 = ['9','金','21:00','3Dボンバーマン大会']
 
@@ -206,12 +210,9 @@ async def on_message(message):
         
             # テスト
         if message.content == '/test':
-            await message.channel.send(CHANNEL_ID)
-            await message.channel.send(client.user.name)
-            await message.channel.send(client.user.id)
             channel = client.get_channel(CHANNEL_ID)
             await channel.send('チャンネル特定したぞうぉううぉう')
-            retutn
+            return
 
         # 通知予定を表示
         if message.content == '/view':
@@ -269,7 +270,7 @@ async def on_message(message):
             await message.channel.send(tempstr)
             return
     except Exception as e:
-        await message.channel.send(traceback.format_exc())
+        await error_channel.send(traceback.format_exc())
         
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
@@ -325,10 +326,10 @@ async def sendloop(channel):
     
         if tempstr != '':
             tempstr = '--------------10分後に下記イベントが行われます。--------------\n' + tempstr
-            await channel.send(tempstr)
+            await tuuchi_channel.send(tempstr)
     except Exception as e:
-        await channel.send('通知処理でエラーが発生しちゃったよ。')
-        await channel.send(traceback.format_exc())
+        await error_channel.send('通知処理でエラーが発生しちゃったよ。')
+        await error_channel.send(traceback.format_exc())
 
 def get_nth_week(day):
     return (day - 1) // 7 + 1
