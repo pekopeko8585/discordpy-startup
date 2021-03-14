@@ -21,10 +21,8 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()
 
 TUUCHI_CHANNEL_ID = 817245146771882014
-tuuchi_channel = client.get_channel(TUUCHI_CHANNEL_ID)
 
 ERROR_CHANNEL_ID = 820499967764332583
-error_channel = client.get_channel(ERROR_CHANNEL_ID)
 
 list100 = ['9','金','21:00','3Dボンバーマン大会']
 
@@ -97,9 +95,11 @@ help_removeeveryday = (
 @client.event
 async def on_ready():
     try:
+        tuuchi_channel = client.get_channel(TUUCHI_CHANNEL_ID)
         tuuchi_channel.send('サーバーが勝手に再起動しやがりました。')
         sendloop.start(tuuchi_channel)
     except Exception as e:
+        error_channel = client.get_channel(ERROR_CHANNEL_ID)
         await error_channel.send(traceback.format_exc())
         
 # メッセージ受信時に動作する処理
@@ -273,6 +273,7 @@ async def on_message(message):
             await message.channel.send(tempstr)
             return
     except Exception as e:
+        error_channel = client.get_channel(ERROR_CHANNEL_ID)
         await error_channel.send(traceback.format_exc())
         
 # 60秒に一回ループ
@@ -329,8 +330,10 @@ async def sendloop(channel):
     
         if tempstr != '':
             tempstr = '--------------10分後に下記イベントが行われます。--------------\n' + tempstr
+            tuuchi_channel = client.get_channel(TUUCHI_CHANNEL_ID)
             await tuuchi_channel.send(tempstr)
     except Exception as e:
+        error_channel = client.get_channel(ERROR_CHANNEL_ID)
         await error_channel.send('通知処理でエラーが発生しちゃったよ。')
         await error_channel.send(traceback.format_exc())
 
