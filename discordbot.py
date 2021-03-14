@@ -6,7 +6,7 @@ import threading
 import time
 import sched
 import asyncio
-
+import traceback
 
 ###############################################################################################
 #                                                                                             #
@@ -269,62 +269,66 @@ async def on_message(message):
             await message.channel.send(tempstr)
             return
     except Exception as e:
-        await message.channel.send(e)
+        await message.channel.send(traceback.format_exc())
         
 # 60秒に一回ループ
 @tasks.loop(seconds=60)
 async def sendloop(channel):
-    # 0 1 2 3 4 5 6
-    # 月火水木金土日
-    # 現在の時刻
-    dt = datetime.datetime
-    now_week = w_list[datetime.date.today().weekday()]
-    d_today = dt.now()
+    try:
+        # 0 1 2 3 4 5 6
+        # 月火水木金土日
+        # 現在の時刻
+        dt = datetime.datetime
+        now_week = w_list[datetime.date.today().weekday()]
+        d_today = dt.now()
 
-    tempstr = ''
-    isFirst = True
+        tempstr = ''
+        isFirst = True
 
-    #毎日通知
-    for item in eventList_everyday:
-        #日時が一致した場合
-        item0 = datetime.datetime.strptime(item[0], '%H:%M')
-        item0 = item0 + datetime.timedelta(minutes=-10)
-        if item0.strftime('%H:%M') == d_today.strftime('%H:%M'):
-            if isFirst == False:
-                tempstr = tempstr + '\n'
-            tempstr = tempstr + item[1] + '\n'
-            isFirst = False
+        #毎日通知
+        for item in eventList_everyday:
+            #日時が一致した場合
+            item0 = datetime.datetime.strptime(item[0], '%H:%M')
+            item0 = item0 + datetime.timedelta(minutes=-10)
+            if item0.strftime('%H:%M') == d_today.strftime('%H:%M'):
+                if isFirst == False:
+                    tempstr = tempstr + '\n'
+                tempstr = tempstr + item[1] + '\n'
+                isFirst = False
     
-    #定期通知
-    for item in eventList_week:
-        # 曜日と日時が一致した場合
-        item2 = datetime.datetime.strptime(item[2], '%H:%M')
-        item2 = item2 + datetime.timedelta(minutes=-10)
-        if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item2.strftime('%H:%M') == d_today.strftime('%H:%M'):
-            if isFirst == False:
-                tempstr = tempstr + '\n'
-            tempstr = tempstr + item[3] + '\n'
-            isFirst = False
+        #定期通知
+        for item in eventList_week:
+            # 曜日と日時が一致した場合
+            item2 = datetime.datetime.strptime(item[2], '%H:%M')
+            item2 = item2 + datetime.timedelta(minutes=-10)
+            if (item[0] == str(9) or item[0] == str(get_nth_week(datetime.date.today().day))) and now_week == item[1] and item2.strftime('%H:%M') == d_today.strftime('%H:%M'):
+                if isFirst == False:
+                    tempstr = tempstr + '\n'
+                tempstr = tempstr + item[3] + '\n'
+                isFirst = False
 
-    #単発通知
-    count = 0
-    for item in eventList_day:
-        # 日時が一致した場合
-        item1 = datetime.datetime.strptime(item[1], '%H:%M')
-        item1 = item1 + datetime.timedelta(minutes=-10)
-        if item[0] == d_today.strftime('%Y%m%d') and item1.strftime('%H:%M') == d_today.strftime('%H:%M'):
-            if isFirst == False:
-                tempstr = tempstr + '\n'
-            tempstr = tempstr + item[2] + '\n'
-            isFirst = False
+        #単発通知
+        count = 0
+        for item in eventList_day:
+            # 日時が一致した場合
+            item1 = datetime.datetime.strptime(item[1], '%H:%M')
+            item1 = item1 + datetime.timedelta(minutes=-10)
+            if item[0] == d_today.strftime('%Y%m%d') and item1.strftime('%H:%M') == d_today.strftime('%H:%M'):
+                if isFirst == False:
+                    tempstr = tempstr + '\n'
+                tempstr = tempstr + item[2] + '\n'
+                isFirst = False
 
-            del eventList_day[count]
-            count -= 1
-        count += 1
+                del eventList_day[count]
+                count -= 1
+            count += 1
     
-    if tempstr != '':
-        tempstr = '--------------10分後に下記イベントが行われます。--------------\n' + tempstr
-        await channel.send(tempstr)
+        if tempstr != '':
+            tempstr = '--------------10分後に下記イベントが行われます。--------------\n' + tempstr
+            await channel.send(tempstr)
+    except Exception as e:
+        await channel.send('通知処理でエラーが発生しちゃったよ。')
+        await channel.send(traceback.format_exc())
 
 def get_nth_week(day):
     return (day - 1) // 7 + 1
