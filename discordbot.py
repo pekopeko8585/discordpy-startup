@@ -21,10 +21,10 @@ token = os.environ['DISCORD_BOT_TOKEN']
 client = discord.Client()
 
 TUUCHI_CHANNEL_ID = 817245146771882014
-tuuchi_channel = client.get_channel(CHANNEL_ID)
+tuuchi_channel = client.get_channel(TUUCHI_CHANNEL_ID)
 
 ERROR_CHANNEL_ID = 820499967764332583
-error_channel = client.get_channel(CHANNEL_ID)
+error_channel = client.get_channel(ERROR_CHANNEL_ID)
 
 list100 = ['9','金','21:00','3Dボンバーマン大会']
 
