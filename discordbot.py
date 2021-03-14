@@ -96,8 +96,11 @@ help_removeeveryday = (
 # 起動時に動作する処理
 @client.event
 async def on_ready():
-    # 起動したらターミナルにログイン通知が表示される
-    print('ログインしました')
+    try:
+        tuuchi_channel.send('サーバーが勝手に再起動しやがりました。')
+        sendloop.start(tuuchi_channel)
+    except Exception as e:
+        await error_channel.send(traceback.format_exc())
         
 # メッセージ受信時に動作する処理
 @client.event
