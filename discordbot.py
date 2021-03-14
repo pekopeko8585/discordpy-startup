@@ -20,12 +20,11 @@ token = os.environ['DISCORD_BOT_TOKEN']
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-CHANNEL_ID = "817245146771882014"
+CHANNEL_ID = 817245146771882014
 
-list100 = ['2','土','21:00','本日22時からイベントです！']
+list100 = ['9','金','21:00','3Dボンバーマン大会']
 
 eventList_week = [list100]
-eventList_week.append('9 金 21:00 3Dボンバーマン大会'.split(' '))
 eventList_week.append('9 水 21:50 ユグドラシル'.split(' '))
 eventList_week.append('9 木 22:00 関西弁集会'.split(' '))
 eventList_week.append('9 木 22:00 VR方言酒場のまってら'.split(' '))
@@ -208,8 +207,9 @@ async def on_message(message):
             # テスト
         if message.content == '/test':
             await message.channel.send(CHANNEL_ID)
+            await message.channel.send(client.user.name)
+            await message.channel.send(client.user.id)
             channel = client.get_channel(CHANNEL_ID)
-            await message.channel.send('ちゃんねる')
             await channel.send('チャンネル特定したぞうぉううぉう')
             retutn
 
